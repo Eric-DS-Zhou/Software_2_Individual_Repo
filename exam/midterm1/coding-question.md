@@ -74,18 +74,23 @@ Correspondace: use <0> to represent 0
 
 public final void multiplyBy10(int k){
 
-    if (this.rep.entry(0) > 0) {
-        this.rep.add(this.rep.length(), k);
+    if (this.rep.length() == 1){
+        int digit = this.rep.remove(0);
+        if(digit == 0) {
+            this.rep.add(0, k);
+        } else {
+            this.rep.add(0, digit);
+            this.rep.add(1, k);
+        }
     } else {
-        this.rep.replaceEntry(0, k);
+        this.rep.add(this.rep.length(), k);
     }
 }
 
 public final int divideBy10(){
 
     int result = this.rep.remove(this.rep.length() - 1);
-
-    if (this.rep.length() == 0){
+    if (this.rep.length() == 0) {
         this.rep.add(0, 0);
     }
 
@@ -94,7 +99,18 @@ public final int divideBy10(){
 
 public final boolean isZero(){
 
-    return this.rep.entry(0) == 0;
+    boolean result = false;
+    
+    if (this.rep.length() == 1) {
+        int digit = this.rep.remove(0);
+        if (digit == 0) {
+            result = true;
+        }
+        this.rep.add(0, digit);
+    }
+
+    return result;
+
 }
 
 ```
