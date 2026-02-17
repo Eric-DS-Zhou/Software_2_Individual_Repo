@@ -49,11 +49,7 @@ public static <T> boolean isBalanced(BinaryTree <T> t){
         BinaryTree<T> right = t.newInstance();
         T root = t.disassemble(left, right);
 
-        if (Math.abs(left.height() - right.height()) > 1) {
-            result = false;
-        } else {
-            result = isBalanced(left) && isBalanced(right);
-        }
+        result = (Math.abs(left.height() - right.height()) <= 1) && isBalanced(left) && isBalanced(right);
 
         t.assemble(root, left, right);
     }
@@ -93,10 +89,9 @@ public final int divideBy10(){
 
 public final boolean isZero(){
 
-    boolean result = this.rep.entry(0) = 0;
+    boolean result = this.rep.entry(0) == 0;
 
     return result;
-
 }
 
 ```
