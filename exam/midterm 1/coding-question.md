@@ -74,16 +74,10 @@ Correspondace: use <0> to represent 0
 
 public final void multiplyBy10(int k){
 
-    if (this.rep.length() == 1){
-        int digit = this.rep.remove(0);
-        if(digit == 0) {
-            this.rep.add(0, k);
-        } else {
-            this.rep.add(0, digit);
-            this.rep.add(1, k);
-        }
-    } else {
+    if (this.rep.entry(0) > 0) {
         this.rep.add(this.rep.length(), k);
+    } else {
+        this.rep.replaceEntry(0, k);
     }
 }
 
@@ -99,15 +93,7 @@ public final int divideBy10(){
 
 public final boolean isZero(){
 
-    boolean result = false;
-
-    if (this.rep.length() == 1) {
-        int digit = this.rep.remove(0);
-        if (digit == 0) {
-            result = true;
-        }
-        this.rep.add(0, digit);
-    }
+    boolean result = this.rep.entry(0) = 0;
 
     return result;
 
