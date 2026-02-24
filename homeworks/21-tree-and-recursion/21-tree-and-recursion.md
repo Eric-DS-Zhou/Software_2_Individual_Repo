@@ -146,7 +146,25 @@ public static <T> int height(Tree<T> t) {
  * for all i: integer where (i is in labels(t)) (i <= max)
  * </pre>
  */
-public static int max(Tree<Integer> t) {...}
+public static int max(Tree<Integer> t) {
+    int result = 0;
+
+    Sequence<Tree<Integer>> children = t.newSequenceOfTree();
+    int root = t.disassemble(children);
+
+    result = root;
+
+    for (int i = 0; i < children.length(); i++){
+        int childMax = max(children.entry(i));
+        if (childMax > result){
+            result = childMax;
+        }
+    }
+
+    t.assemble(root, children);
+
+    return result;
+}
 ```
 
 ## Submission
