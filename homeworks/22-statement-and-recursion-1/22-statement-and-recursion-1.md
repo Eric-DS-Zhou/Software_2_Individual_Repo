@@ -141,7 +141,7 @@ public static int countOfPrimitiveCalls(Statement s) {
              * in each nested statement in the BLOCK.
              */
  
-            // TODO - fill in case
+            
  
             break;
         }
