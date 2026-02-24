@@ -1,8 +1,8 @@
 # [Homework 22: Statement and Recursion 1][hw22]
 
-- **Name**: <!-- TODO: fill with first and last name (e.g., Brutus Buckeye) -->
-- **Dot Number**: <!-- TODO: fill with OSU dot number (e.g., buckeye.17) -->
-- **Due Date**: <!-- TODO: fill out with due date and time (e.g., 10/17 @ 3:10 PM EST) -->
+- **Name**: Eric Zhou
+- **Dot Number**: zhou.4898
+- **Due Date**: Mar 10 @ 4:10 PM EST
 
 ## Preparation
 
@@ -49,6 +49,8 @@ ELSE
 END IF
 ```
 
+![Problem 1A](Problem1A.png)
+
 #### Problem 1B
 
 ```generic
@@ -63,6 +65,8 @@ WHILE true DO
 END WHILE
 ```
 
+![Problem1B](Problem1B.png)
+
 #### Problem 1C
 
 ```generic
@@ -73,6 +77,8 @@ WHILE next-is-enemy DO
     turnright
 END WHILE
 ```
+
+![Problem1C](Problem1C.png)
 
 #### Problem 1D
 
@@ -85,6 +91,8 @@ IF next-is-friend THEN
     END WHILE
 END IF
 ```
+
+![Problem1D](Problem1D.png)
 
 #### Problem 1E
 
@@ -102,6 +110,8 @@ ELSE
     skip
 END IF
 ```
+
+![Problem1E](Problem1E.png)
 
 ### Problem 2
 
