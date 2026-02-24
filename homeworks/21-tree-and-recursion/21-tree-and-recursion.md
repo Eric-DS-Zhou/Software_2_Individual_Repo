@@ -1,8 +1,8 @@
 # [Homework 21: Tree and Recursion][hw21]
 
-- **Name**: <!-- TODO: fill with first and last name (e.g., Brutus Buckeye) -->
-- **Dot Number**: <!-- TODO: fill with OSU dot number (e.g., buckeye.17) -->
-- **Due Date**: <!-- TODO: fill out with due date and time (e.g., 10/17 @ 3:10 PM EST) -->
+- **Name**: Eric Zhou
+- **Dot Number**: zhou.4898
+- **Due Date**: Mar 6 @ 4:10 PM EST
 
 ## Preparation
 
@@ -40,7 +40,26 @@ The following problems will give you practice with trees and recursion.
  * @return the size of the given {@code Tree}
  * @ensures size = |t|
  */
-public static <T> int size(Tree<T> t) {...}
+public static <T> int size(Tree<T> t) {
+
+    int result = 0;
+
+    if (t.height() == 0){
+        result = 0;
+    } else {
+        Sequence<Tree<T>> children = t.newSequenceOfTree();
+        T root = t.disassemble(children);
+        result = 1;
+
+        for (int i = 0; i < children.length(); i++){
+            result = result + size(children.entry(i));
+        }
+
+        t.assemble(root, children);
+
+    }
+    return result;
+}
 ```
 
 ### Problem 2
@@ -48,6 +67,18 @@ public static <T> int size(Tree<T> t) {...}
 > Provide a second implementation of the size method above but
 > this time make it an iterative (non-recursive) solution. You
 > still cannot use the size kernel method in your solution.
+
+```java
+    public static <T> int size(Tree<T> t) {
+        int result = 0;
+        for (T x : t) {
+            result++;
+        }
+
+        return result;
+    }
+
+```
 
 ### Problem 3
 
@@ -69,7 +100,30 @@ public static <T> int size(Tree<T> t) {...}
  * @return the height of the given {@code Tree}
  * @ensures height = ht(t)
  */
-public static <T> int height(Tree<T> t) {...}
+public static <T> int height(Tree<T> t) {
+    int result = 0;
+
+    if (t.size() == 0){
+        result = 0;
+    } else {
+        Sequence<Tree<T>> children = t.newSequenceOfTree();
+        T root = t.disassemble(children);
+
+        int maxChildrenHeight = 0;
+
+        for (int i = 0; i < children.length(); i++){
+            int childrenHeight = height(children.entry(i));
+            if (childrenHeight > maxChildrenHeight) {
+                maxChildrenHeight = childrenHeight;
+            }
+        }
+        result = 1 + maxChildrenHeight;
+
+        t.assemble(root, children);
+
+    }
+    return result;
+}
 ```
 
 ### Problem 4
