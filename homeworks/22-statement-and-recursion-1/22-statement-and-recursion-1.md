@@ -140,8 +140,13 @@ public static int countOfPrimitiveCalls(Statement s) {
              * Add up the number of calls to primitive instructions
              * in each nested statement in the BLOCK.
              */
- 
-            
+
+            int n = s.lengthOfBlock();
+            for (int i = 0; i < n; i++) {
+                Statement child = s.removeFromBlock(0);
+                count = count + countOfPrimitiveCalls(child);
+                s.addToBlock(s.lengthOfBlock(), child);
+            }
  
             break;
         }
@@ -151,7 +156,12 @@ public static int countOfPrimitiveCalls(Statement s) {
              * the body of the IF.
              */
  
-            // TODO - fill in case
+            statement bodyPart = s.newInstance();
+            Condition c = s.disassembleIf(ifBody);
+
+            count = countOfPrimitiveCalls(ifBody);
+
+            s.assemble(c, ifBody)
  
             break;
         }
@@ -161,7 +171,13 @@ public static int countOfPrimitiveCalls(Statement s) {
              * the "then" and "else" bodies of the IF_ELSE.
              */
  
-            // TODO - fill in case
+            statement thenPart = s.newInstance();
+            statement elsePart = s.newInstance();
+            Condition c = s.disassembleIfElse(thenPart, elsePart);
+
+            count = countOfPrimitiveCalls(thenPart) + countOfPrimitiveCalls(elsePart);
+
+            s.assembleIfElse(c, thenPart, elsePart);
  
             break;
         }
@@ -171,7 +187,12 @@ public static int countOfPrimitiveCalls(Statement s) {
              * the body of the WHILE.
              */
  
-            // TODO - fill in case
+            statement whileBody = s.newInstance();
+            Condition c = s.disassembleWhile(whileBody);
+
+            count = countOfPrimitiveCalls(whileBody);
+
+            s.assembleWhile(c, whileBody);
  
             break;
         }
@@ -181,7 +202,15 @@ public static int countOfPrimitiveCalls(Statement s) {
              * whether this is a call to a primitive instruction or not.
              */
  
-            // TODO - fill in case
+            String name = s.disassembleCall();
+
+            if (name.equal("move") || name.equals("turnleft") || name.equals("turnright") || name.equals("infect") || name.equals("skip")){
+                count = 1;
+            } else {
+                count = 0;
+            }
+
+            s.assembleCall(name);
  
             break;
         }
