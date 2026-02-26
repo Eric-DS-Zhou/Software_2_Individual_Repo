@@ -1,8 +1,8 @@
 # [Homework 23: Statement and Recursion 2][hw23]
 
-- **Name**: <!-- TODO: fill with first and last name (e.g., Brutus Buckeye) -->
-- **Dot Number**: <!-- TODO: fill with OSU dot number (e.g., buckeye.17) -->
-- **Due Date**: <!-- TODO: fill out with due date and time (e.g., 10/17 @ 3:10 PM EST) -->
+- **Name**: Eric Zhou
+- **Dot Number**: zhou.4898
+- **Due Date**: Mar 11 @ 4:10 PM EST
 
 ## Preparation
 
@@ -45,25 +45,69 @@ public static void simplifyIfElse(Statement s) {
     switch (s.kind()) {
         case BLOCK: {
  
-            // TODO - fill in case
+            int length = s.lengthOfBlock();
+            for (int i = 0; i < length; i++) {
+                Statement child = s.removeFromBlock(i);
+                simplifyIfElse(child);
+                s.addToBlock(i, child);
+            }
  
             break;
         }
         case IF: {
  
-            // TODO - fill in case
+            Statement body = s.newInstance();
+            Condition c = s.disassembleIf(body);
+
+            simplifyIfElse(body);
+
+            s.assembleIf(c, body);
  
             break;
         }
         case IF_ELSE: {
  
-            // TODO - fill in case
+            Statement thenPart = s.newInstance();
+            Statement elsePart = s.newInstance();
+            Condition c = s.disassembleIfElse(thenPart, elsePart);
+
+            simplifyIfElse(thenPart);
+            simplifyIfElse(elsePart);
+
+            if (c == Condition.NEXT_IS_NOT_EMPTY) {
+                c = Condition.NEXT_IS_EMPTY;
+                Statement temp = thenPart;
+                thenPart = elsePart;
+                elsePart = temp;
+            } else if (c == Condition.NEXT_IS_NOT_ENEMY) {
+                c = Condition.NEXT_IS_ENEMY;
+                Statement temp = thenPart;
+                thenPart = elsePart;
+                elsePart = temp;
+            } else if (c == Condition.NEXT_IS_NOT_FRIEND) {
+                c = Condition.NEXT_IS_FRIEND;
+                Statement temp = thenPart;
+                thenPart = elsePart;
+                elsePart = temp;
+            } else if (c == Condition.NEXT_IS_NOT_WALL) {
+                c = Condition.NEXT_IS_WALL;
+                Statement temp = thenPart;
+                thenPart = elsePart;
+                elsePart = temp;
+            }
+
+            s.assembleIfElse(c, thenPart, elsePart);
  
             break;
         }
         case WHILE: {
  
-            // TODO - fill in case
+        Statement body = s.newInstance();
+        Condition c = s.disassembleWhile(body);
+
+        simplifyIfElse(body);
+
+        s.assembleWhile(c, body);
  
             break;
         }
