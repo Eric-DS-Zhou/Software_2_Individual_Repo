@@ -188,7 +188,20 @@ public final class ArraySiftDownMain {
          * when using the array representation for a complete binary tree.
          */
 
-        // TODO - fill in body using recursive algorithm from slides
+        int left = 2 * top + 1;
+
+        if (left <= last) {
+            int right = left + 1;
+            int smaller = left;
+            if (right <= last && array[right] < array[left]) {
+                smaller = right;
+            }
+
+            if (array[top] > array[smaller]) {
+                exchangeEntries(array, top, smaller);
+                siftDown(array, smaller, last);
+            }
+        }
 
     }
 
