@@ -3,6 +3,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import components.queue.Queue;
+import components.queue.Queue1L;
 import components.sortingmachine.SortingMachine;
 import components.sortingmachine.SortingMachineSecondary;
 
@@ -59,7 +60,7 @@ import components.sortingmachine.SortingMachineSecondary;
  *   this = (false, $this.machineOrder, multiset_entries($this.heap[0, $this.heapSize)))
  * </pre>
  *
- * @author Put your name here
+ * @author Eric Zhou
  *
  */
 public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
@@ -115,7 +116,9 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
         assert 0 <= j : "Violation of: 0 <= j";
         assert j < array.length : "Violation of: j < |array|";
 
-        // TODO - fill in body
+        T temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
 
     }
 
@@ -178,7 +181,21 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
          * representation for a complete binary tree.
          */
 
-        // TODO - fill in body
+        int left = top * 2 + 1; // the index of left
+        if (left <= last) { //check whether right exist
+            int right = left + 1;
+            int smallest = left;
+            if (right <= last) {
+                if (order.compare(array[right], array[left]) < 0) {
+                    smallest = right; //find the smallest
+                }
+            }
+
+            if (order.compare(array[smallest], array[top]) < 0) {
+                exchangeEntries(array, top, smallest); //exchange the root
+                siftDown(array, smallest, last, order);
+            }
+        }
         // *** you must use the recursive algorithm discussed in class ***
 
     }
@@ -223,7 +240,20 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
          * representation for a complete binary tree.
          */
 
-        // TODO - fill in body
+        int left = 2 * top + 1;
+        int right = left + 1;
+
+        if (left < array.length) {
+            heapify(array, left, order);
+        }
+
+        if (right < array.length) {
+            heapify(array, right, order);
+        }
+
+        if (left < array.length) {
+            siftDown(array, top, array.length - 1, order);
+        }
         // *** you must use the recursive algorithm discussed in class ***
 
     }
@@ -263,7 +293,15 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
          */
         T[] heap = (T[]) (new Object[q.length()]);
 
-        // TODO - fill in rest of body
+        int i = 0;
+        while (q.length() > 0) {
+            heap[i] = q.dequeue();
+            i++;
+        }
+
+        if (heap.length > 0) {
+            heapify(heap, 0, order);
+        }
 
         return heap;
     }
@@ -384,7 +422,11 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
      */
     private void createNewRep(Comparator<T> order) {
 
-        // TODO - fill in body
+        this.insertionMode = true;
+        this.machineOrder = order;
+        this.entries = new Queue1L<T>();
+        this.heap = null;
+        this.heapSize = 0;
 
     }
 
