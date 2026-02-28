@@ -524,6 +524,12 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
 
         exchangeEntries(this.heap, 0, this.heapSize - 1);
 
+        this.heapSize--;
+
+        if (this.heapSize > 0) {
+            siftDown(this.heap, 0, this.heapSize - 1, this.machineOrder);
+        }
+
         assert this.conventionHolds();
 
         return result;
@@ -544,11 +550,16 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
     @Override
     public final int size() {
 
-        // TODO - fill in body
+        int result = 0;
+        if (this.insertionMode) {
+            result = this.entries.length();
+        } else {
+            result = this.heapSize;
+        }
 
         assert this.conventionHolds();
         // Fix this line to return the result after checking the convention.
-        return 0;
+        return result;
     }
 
     @Override
