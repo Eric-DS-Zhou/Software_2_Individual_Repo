@@ -508,7 +508,7 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
         assert this.isInInsertionMode() : "Violation of: this.insertion_mode";
 
         this.heap = buildHeap(this.entries, this.machineOrder);
-        this.heapSize = this.entries.length();
+        this.heapSize = this.heap.length;
         this.insertionMode = false;
 
         assert this.conventionHolds();
