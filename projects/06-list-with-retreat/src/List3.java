@@ -38,7 +38,7 @@ import components.list.ListSecondary;
  *    $this.postFinish.previous])
  * </pre>
  *
- * @author Put your name here
+ * @author Eric Zhou
  *
  */
 public class List3<T> extends ListSecondary<T> {
@@ -176,7 +176,15 @@ public class List3<T> extends ListSecondary<T> {
      */
     private void createNewRep() {
 
-        // TODO - fill in body
+        this.preStart = new Node(); // set the smart node
+        this.postFinish = new Node();
+
+        this.preStart.next = this.postFinish;
+        this.postFinish.previous = this.preStart;
+
+        this.lastLeft = this.preStart;
+        this.leftLength = 0; //set the length
+        this.rightLength = 0;
 
     }
 
@@ -185,7 +193,7 @@ public class List3<T> extends ListSecondary<T> {
      */
     public List3() {
 
-        // TODO - fill in body
+        this.createNewRep();
 
         assert this.conventionHolds();
     }
@@ -231,7 +239,15 @@ public class List3<T> extends ListSecondary<T> {
     public final void addRightFront(T x) {
         assert x != null : "Violation of: x is not null";
 
-        // TODO - fill in body
+        Node newNode = new Node();
+        newNode.data = x;
+        newNode.next = this.lastLeft.next;
+        newNode.previous = this.lastLeft;
+
+        this.lastLeft.next.previous = newNode;
+        this.lastLeft.next = newNode;
+
+        this.rightLength++;
 
         assert this.conventionHolds();
     }
@@ -240,18 +256,26 @@ public class List3<T> extends ListSecondary<T> {
     public final T removeRightFront() {
         assert this.rightLength() > 0 : "Violation of: this.right /= <>";
 
-        // TODO - fill in body
+        Node oldRightFront = this.lastLeft.next;
+        T result = oldRightFront.data;
+
+        this.lastLeft.next = oldRightFront.next;
+        oldRightFront.next.previous = this.lastLeft;
+
+        this.rightLength--;
 
         assert this.conventionHolds();
-        // Fix this line to return the result after checking the convention.
-        return null;
+
+        return result;
     }
 
     @Override
     public final void advance() {
         assert this.rightLength() > 0 : "Violation of: this.right /= <>";
 
-        // TODO - fill in body
+        this.lastLeft = this.lastLeft.next;
+        this.leftLength++;
+        this.rightLength--;
 
         assert this.conventionHolds();
     }
@@ -259,7 +283,9 @@ public class List3<T> extends ListSecondary<T> {
     @Override
     public final void moveToStart() {
 
-        // TODO - fill in body
+        this.lastLeft = this.preStart;
+        this.rightLength = this.rightLength + this.leftLength;
+        this.leftLength = 0;
 
         assert this.conventionHolds();
     }
@@ -267,21 +293,21 @@ public class List3<T> extends ListSecondary<T> {
     @Override
     public final int leftLength() {
 
-        // TODO - fill in body
+        int result = this.leftLength;
 
         assert this.conventionHolds();
-        // Fix this line to return the result after checking the convention.
-        return 0;
+
+        return result;
     }
 
     @Override
     public final int rightLength() {
 
-        // TODO - fill in body
+        int result = this.rightLength;
 
         assert this.conventionHolds();
-        // Fix this line to return the result after checking the convention.
-        return 0;
+
+        return result;
     }
 
     @Override
@@ -345,7 +371,9 @@ public class List3<T> extends ListSecondary<T> {
     @Override
     public final void moveToFinish() {
 
-        // TODO - fill in body
+        this.lastLeft = this.postFinish.previous;
+        this.leftLength = this.leftLength + this.rightLength;
+        this.rightLength = 0;
 
         assert this.conventionHolds();
     }
@@ -354,7 +382,9 @@ public class List3<T> extends ListSecondary<T> {
     public final void retreat() {
         assert this.leftLength() > 0 : "Violation of: this.left /= <>";
 
-        // TODO - fill in body
+        this.lastLeft = this.lastLeft.previous;
+        this.leftLength--;
+        this.rightLength++;
 
         assert this.conventionHolds();
     }
