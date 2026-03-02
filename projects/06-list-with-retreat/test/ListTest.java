@@ -753,6 +753,64 @@ public abstract class ListTest {
         assertEquals(list2, list1);
     }
 
-    // TODO - add test cases for retreat
+    @Test
+    public final void testRetreatLeftTwoElement() {
+        /*
+         * Set up variables
+         */
+        List<String> list1 = this.createFromArgsTest(2, "a", "b", "c", "d");
+        List<String> list2 = this.createFromArgsRef(1, "a", "b", "c", "d");
+        /*
+         * Call method under test
+         */
+        list1.retreat();
+
+        assertEquals(list2, list1);
+    }
+
+    @Test
+    public final void testRetreatLeftOneElement() {
+        /*
+         * Set up variables
+         */
+        List<String> list1 = this.createFromArgsTest(1, "a", "b", "c", "d");
+        List<String> list2 = this.createFromArgsRef(0, "a", "b", "c", "d");
+        /*
+         * Call method under test
+         */
+        list1.retreat();
+
+        assertEquals(list2, list1);
+    }
+
+    @Test
+    public final void testRetreatRightEmpty() {
+        /*
+         * Set up variables
+         */
+        List<String> list1 = this.createFromArgsTest(4, "a", "b", "c", "d");
+        List<String> list2 = this.createFromArgsRef(3, "a", "b", "c", "d");
+        /*
+         * Call method under test
+         */
+        list1.retreat();
+
+        assertEquals(list2, list1);
+    }
+
+    @Test
+    public final void testRetreatBothOneElement() {
+        /*
+         * Set up variables
+         */
+        List<String> list1 = this.createFromArgsTest(1, "a");
+        List<String> list2 = this.createFromArgsRef(0, "a");
+        /*
+         * Call method under test
+         */
+        list1.retreat();
+
+        assertEquals(list2, list1);
+    }
 
 }
