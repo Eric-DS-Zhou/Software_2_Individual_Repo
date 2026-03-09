@@ -137,13 +137,28 @@ public static void renameInstruction(Program p, String oldName,
         String newName) {
     Statement body = p.newBody();
     Map<String, Statement> context = p.newContext();
-    Map<String, statement> newContext = p.newContext();
+    Map<String, Statement> newContext = p.newContext();
     p.swapBody(body);
     p.swapContext(context);
 
     renameInstruction(body, oldName, newName);
 
-    while()
+    while(context.size() > 0) {
+        Map.Pair<String, Statement> entry = context.removeAny();
+        String name = entry.key();
+        Statement instructionBody = entry.value();
+
+        renameInstruction(instructionBody, oldName, newName);
+
+        if(name.equals(oldName)) {
+            newContext.add(newName, instructionBody);
+        } else {
+            newContext.add(name, instructionBody);
+        }
+    }
+
+    p.swapBody(body);
+    p.swapContext(newContext);
 }
 ```
 
@@ -180,6 +195,8 @@ context.add("walk", block);
 p.swapContext(context);
 ```
 
+![Problem 3](Problem3.png)
+
 ### Problem 4
 
 > Consider the occurrence on line 19 of the code snippet above of
@@ -190,6 +207,10 @@ p.swapContext(context);
 > in the code snippet in which the statement executed would introduce
 > an alias to a mutable object? (Hint: all contracts in our components
 > catalog advertise every introduction of an alias to a mutable object.))
+
+![Problem 4](Problem4.png)
+
+Reason: If line 19 were replaced by block.clear(), then the block already added to context under "run" would be cleared because of aliasing.
 
 ## Submission
 
