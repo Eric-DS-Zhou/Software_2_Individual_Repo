@@ -1,8 +1,8 @@
 # [Homework 25: Program and Statement renameInstruction][hw25]
 
-- **Name**: <!-- TODO: fill with first and last name (e.g., Brutus Buckeye) -->
-- **Dot Number**: <!-- TODO: fill with OSU dot number (e.g., buckeye.17) -->
-- **Due Date**: <!-- TODO: fill out with due date and time (e.g., 10/17 @ 3:10 PM EST) -->
+- **Name**: Eric Zhou
+- **Dot Number**: zhou.4898
+- **Due Date**: Mar 25 @ 4:10 PM EST
 
 ## Preparation
 
@@ -45,7 +45,27 @@ The following problems will give you practice with statements and recursion.
  * </pre>
  */
 public static void renameInstruction(Statement s, String oldName,
-        String newName) {...}
+        String newName) {
+    switch (s.kind()) {
+        case BLOCK: {
+            int length = s.lengthOfBlock();
+            for (int i = 0; i < length; i++) {
+                Statement child = s.removeFromBlock(i);
+                renameInstruction(child, oldName, newName);
+                s.addToBlock(i, child);
+            }
+            break;
+        }
+
+        case IF: {
+            Statement body = s.newInstance();
+            Condition c = s.disassembleIf(body);
+            renameInstruction(body, oldName, newName);
+            s.assembleIf(c, body);
+            break;
+        }
+    }
+}
 ```
 
 ### Problem 2
