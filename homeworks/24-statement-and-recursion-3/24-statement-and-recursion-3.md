@@ -73,7 +73,7 @@ public void prettyPrint(SimpleWriter out, int offset) {
             printSpaces(out, offset);
             out.println("END IF");
 
-            this.assembleIF(c, s);
+            this.assembleIf(c, s);
  
             break;
         }
@@ -92,7 +92,7 @@ public void prettyPrint(SimpleWriter out, int offset) {
             printSpaces(out, offset);
             out.println("END IF");
 
-            this.assembleIfElse(c, s1, s2)
+            this.assembleIfElse(c, s1, s2);
  
             break;
         }
