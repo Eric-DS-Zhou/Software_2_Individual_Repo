@@ -1,5 +1,7 @@
 # Worklog (Follow changelog to track the work)
 
+<!-- markdownlint-disable MD024 --> (Aovid checckstyle for duplicated title)
+
 All notable changes to this project will be documented in this file.
 
 The file records my personal work progress and notes for CSE 2231 (Software 2)
@@ -26,3 +28,9 @@ the following form: YYYY.0M.0D.
 ### In progress
 
 - Working on HW 25
+
+## [2026.03.09]
+
+### Completed
+
+- Finished HW 25

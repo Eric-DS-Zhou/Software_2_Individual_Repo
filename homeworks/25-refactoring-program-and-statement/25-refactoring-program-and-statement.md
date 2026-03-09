@@ -49,19 +49,57 @@ public static void renameInstruction(Statement s, String oldName,
     switch (s.kind()) {
         case BLOCK: {
             int length = s.lengthOfBlock();
+
             for (int i = 0; i < length; i++) {
                 Statement child = s.removeFromBlock(i);
                 renameInstruction(child, oldName, newName);
                 s.addToBlock(i, child);
             }
+
             break;
         }
 
         case IF: {
             Statement body = s.newInstance();
             Condition c = s.disassembleIf(body);
+
             renameInstruction(body, oldName, newName);
             s.assembleIf(c, body);
+
+            break;
+        }
+
+        case IF_ELSE: {
+            Statement thenPart = s.newInstance();
+            Statement elsePart = s.newInstance();
+            Condition c = s.disassembleIfElse(thenPart, elsePart);
+
+            renameInstruction(thenPart, oldName, newName);
+            renameInstruction(elsePart, oldName, newName);
+            s.assembleIfElse(c, thenPart, elsePart);
+
+            break;
+        }
+
+        case WHILE: {
+            Statement body = s.newInstance();
+            Condition c = s.disassembleWhile(body);
+
+            renameInstruction(body, oldName, newName);
+            s.assembleWhile(c, body);
+
+            break;
+        }
+
+        case CALL: {
+            String callName = s.disassembleCall();
+            
+            if(callName.equals(oldName)) {
+                s.assembleCall(newName);
+            } else {
+                s.assembleCall(callName);
+            }
+
             break;
         }
     }
