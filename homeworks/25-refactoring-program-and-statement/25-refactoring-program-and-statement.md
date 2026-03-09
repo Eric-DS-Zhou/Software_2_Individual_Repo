@@ -93,7 +93,7 @@ public static void renameInstruction(Statement s, String oldName,
 
         case CALL: {
             String callName = s.disassembleCall();
-            
+
             if(callName.equals(oldName)) {
                 s.assembleCall(newName);
             } else {
@@ -134,7 +134,17 @@ public static void renameInstruction(Statement s, String oldName,
  * </pre>
  */
 public static void renameInstruction(Program p, String oldName,
-        String newName) {...}
+        String newName) {
+    Statement body = p.newBody();
+    Map<String, Statement> context = p.newContext();
+    Map<String, statement> newContext = p.newContext();
+    p.swapBody(body);
+    p.swapContext(context);
+
+    renameInstruction(body, oldName, newName);
+
+    while()
+}
 ```
 
 ### Problem 3
