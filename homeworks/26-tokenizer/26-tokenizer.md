@@ -62,14 +62,29 @@ have to waste time entering your code during the lab.
  *      is not subset of entries(SEPARATORS))
  * </pre>
  */
-private static String nextWordOrSeparator(String text, int position) {...}
+private static String nextWordOrSeparator(String text, int position) {
+
+    Set<Character> sepSet = new Set1L<Character>();
+    for (int i = 0; i < SEPARATORS.length(); i++){
+        sepSet.add(SEPARATORS.charAt(i));
+    }
+
+    int endIndex = position;
+    boolean ifSep = sepSet.contains(text.charAt(position));
+
+    while (endIndex < text.length()
+                && sepSet.contains(text.charAt(endIndex)) == ifSep) {
+        endIndex++;
+    }
+
+    return text.substring(position, endIndex);
+}
 ```
 
 > This is a modified version of the method you wrote in a homework and lab in Software I.
 > Feel free to reuse your own code (but not someone else's) for this homework. Note that
 > the method here has one less parameter than in the Software I version. The "separators"
 > are defined as a String constant as follows:
-
 
 ```java
 /**
@@ -101,7 +116,31 @@ private static final String SEPARATORS = " \t\n\r";
  * in.content = <>
  * </pre>
  */
-public static Queue<String> tokens(SimpleReader in) {...}
+public static Queue<String> tokens(SimpleReader in) {
+
+    Set<Character> sepSet = new Set1L<Character>();
+    for (int i = 0; i < SEPARATORS.length(); i++){
+        sepSet.add(SEPARATORS.charAt(i));
+    }
+
+    Queue<String> result = new Queue1L<String>();
+
+    while(!in.atEOS()) {
+        String line = in.nextLine();
+        int position = 0;
+
+        while (position < line.length()){
+            String token = nextWordOrSeparator(line, position);
+            if (!sepSet.contains(line.charAt(position))) {
+                result.enqueue(token);
+            }
+            position = position + token.length();
+        }
+    }
+
+    result.enqueue(END_OF_INPUT);
+    return result;
+}
 ```
 
 > The END_OF_INPUT token used in the ensures clause is defined as a

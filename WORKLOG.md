@@ -34,3 +34,11 @@ the following form: YYYY.0M.0D.
 ### Completed
 
 - Finished HW 25
+
+## [2026.03.10]
+
+### Completed
+
+- Finished HW 26
+- Uploaded Project 6 to group repo
+- Revised Project 4 based on the comments
