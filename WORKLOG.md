@@ -12,7 +12,7 @@ the following form: YYYY.0M.0D.
 
 ## To-Do-List
 
-### Update
+### Update Task
 
 - Update HW 1 - 20
 - Update Midterm 1 coding question
