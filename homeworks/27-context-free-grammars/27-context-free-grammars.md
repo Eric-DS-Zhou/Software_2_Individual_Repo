@@ -1,8 +1,8 @@
 # [Homework 27: Context-Free Grammars][hw27]
 
-- **Name**: <!-- TODO: fill with first and last name (e.g., Brutus Buckeye) -->
-- **Dot Number**: <!-- TODO: fill with OSU dot number (e.g., buckeye.17) -->
-- **Due Date**: <!-- TODO: fill out with due date and time (e.g., 10/17 @ 3:10 PM EST) -->
+- **Name**: Eric Zhou
+- **Dot Number**: zhou.4898
+- **Due Date**: Mar 27 @ 4:10 PM EST
 
 ## Preparation
 
@@ -34,6 +34,20 @@ your own feedback][feedback-form] after completing this assignment.
 >
 >       -3.56, +17.E09, 4.95
 
+<signed-real-constant> =>   <real constant> |
+                          + <real constant> |
+                          - <real constant>
+<real-constant> => <digit-seq> . <digit-seq>  |
+                   <digit-seq> . <digit-seq><exponent> |
+                   <digit-seq> . |
+                   <digit-seq> . <exponent>
+<exponent> => E <digit-seq>   |
+              E + <digit-seq> |
+              E - <digit-seq>
+<digit-seq> => <digit><digit-seq> |
+               <digit>
+<digit> => 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+
 ### Problem 2
 
 > Using the following rewrite rules for Boolean expressions, give a derivation
@@ -45,6 +59,16 @@ your own feedback][feedback-form] after completing this assignment.
 >                   → NOT ( bool-exp ) |
 >                   → ( bool-exp AND bool-exp ) |
 >                   → ( bool-exp OR bool-exp )
+
+bool-exp
+=> < bool-exp OR bool-exp >
+=> < NOT < bool-exp> OR bool-exp >
+=> < NOT < < bool-exp AND bool-exp > > OR bool-exp >
+=> < NOT < < F AND bool-exp > > OR bool-exp >
+=> < NOT < < F AND T > > OR bool-exp >
+=> < NOT < < F AND T > > OR F>
+
+![Problem 2](problem2.png)
 
 ### Problem 3
 
