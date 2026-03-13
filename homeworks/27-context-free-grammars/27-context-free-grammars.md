@@ -34,19 +34,21 @@ your own feedback][feedback-form] after completing this assignment.
 >
 >       -3.56, +17.E09, 4.95
 
-<signed-real-constant> =>   <real constant> |
-                          + <real constant> |
-                          - <real constant>
-<real-constant> => <digit-seq> . <digit-seq>  |
-                   <digit-seq> . <digit-seq><exponent> |
-                   <digit-seq> . |
-                   <digit-seq> . <exponent>
-<exponent> => E <digit-seq>   |
-              E + <digit-seq> |
-              E - <digit-seq>
-<digit-seq> => <digit><digit-seq> |
+    <signed-real-constant> =>   <real constant> |
+                              + <real constant> |
+                              - <real constant>
+    <real-constant> => <digit-seq> . <digit-seq>  |
+                       <digit-seq> . <digit-seq><exponent> |
+                       <digit-seq> . |
+                       <digit-seq> . <exponent>
+    <exponent> => E <digit-seq>   |
+                  E + <digit-seq> |
+                  E - <digit-seq>
+    <digit-seq> => <digit><digit-seq> |
                <digit>
-<digit> => 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+    <digit> => 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+
+`FORMAT (Markdown)` ![Problem 1](Problem1.png)
 
 ### Problem 2
 
@@ -54,19 +56,21 @@ your own feedback][feedback-form] after completing this assignment.
 > for the Boolean expression (NOT((F AND T)) OR F). Also draw a derivation tree
 > corresponding to the derivation.
 >
->       bool-exp	→ T |
+>       bool-exp    → T |
 >                   → F |
 >                   → NOT ( bool-exp ) |
 >                   → ( bool-exp AND bool-exp ) |
 >                   → ( bool-exp OR bool-exp )
 
-bool-exp
-=> < bool-exp OR bool-exp >
-=> < NOT < bool-exp> OR bool-exp >
-=> < NOT < < bool-exp AND bool-exp > > OR bool-exp >
-=> < NOT < < F AND bool-exp > > OR bool-exp >
-=> < NOT < < F AND T > > OR bool-exp >
-=> < NOT < < F AND T > > OR F>
+    bool-exp
+    => < bool-exp OR bool-exp >
+    => < NOT < bool-exp> OR bool-exp >
+    => < NOT < < bool-exp AND bool-exp > > OR bool-exp >
+    => < NOT < < F AND bool-exp > > OR bool-exp >
+    => < NOT < < F AND T > > OR bool-exp >
+    => < NOT < < F AND T > > OR F>
+
+`Format(Markdown)` ![Problem 2 format](Problem2Format.png)
 
 ![Problem 2](problem2.png)
 
@@ -75,11 +79,15 @@ bool-exp
 > Using the following rewrite rules for Boolean expressions, find two different
 > derivation trees for the Boolean expression NOT(T OR T AND F).
 >
->       bool-exp	→ T |
+>       bool-exp    → T |
 >                   → F |
 >                   → NOT ( bool-exp ) |
 >                   → bool-exp AND bool-exp |
 >                   → bool-exp OR bool-exp
+
+`TYPE ONE`: ![Problem 3 - Type 1](Problem3_Type1.png)
+
+`TYPE TWO`: ![Problem 3 - Type 2](Problem3_Type2.png)
 
 ### Problem 4
 
@@ -93,6 +101,8 @@ bool-exp
 >       mult-op     → * | DIV | MOD
 >       digit-seq   → digit digit-seq | digit
 >       digit       → 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+
+![Problem 4](Problem4.png)
 
 ### Problem 5
 
@@ -121,6 +131,8 @@ bool-exp
 >               → term add-op term add-op term |
 >               → term add-op term add-op term add-op term |
 >               → ...
+
+![Problem 5](Problem5.png)
 
 ## Submission
 
