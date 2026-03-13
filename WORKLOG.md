@@ -1,6 +1,6 @@
 # Worklog (Follow changelog to track the work)
 
-<!-- markdownlint-disable MD024 --> (Aovid checckstyle for duplicated title)
+<!-- markdownlint-disable MD024 --> (Aovid checckstyle for `duplicated title`)
 
 All notable changes to this project will be documented in this file.
 
@@ -42,3 +42,9 @@ the following form: YYYY.0M.0D.
 - Finished HW 26
 - Uploaded Project 6 to group repo
 - Revised Project 4 based on the comments
+
+## [2026.03.12]
+
+### Completed
+
+- Finished HW 27
