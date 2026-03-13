@@ -79,7 +79,11 @@ have to waste time entering your code during the lab.
  * #source = [longest expr string at start of #source] * source
  * </pre>
  */
-public static int valueOfExpr(StringBuilder source) {...}
+public static int valueOfExpr(StringBuilder source) {
+    int value = valueOfTerm(source);
+
+    
+}
  
 /**
  * Evaluates a term and returns its value.

@@ -51,3 +51,13 @@ the following form: YYYY.0M.0D.
 
 - Finished HW 27
 - Submitted Project 6
+
+### In Progress
+
+- Working on HW 28
+
+## [2026.03.13]
+
+### Completed
+
+- Finished HW 28
