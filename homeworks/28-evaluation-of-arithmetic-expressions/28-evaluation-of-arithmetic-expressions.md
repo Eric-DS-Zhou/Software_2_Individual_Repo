@@ -83,7 +83,7 @@ public static int valueOfExpr(StringBuilder source) {
     int value = valueOfTerm(source);
 
     while (source.charAt(0) == '+' || source.charAt(0) == '-') {
-        char op = source.chatAt(0);
+        char op = source.charAt(0);
         source.deleteCharAt(0);
         int nextValue = valueOfTerm(source);
 
@@ -116,12 +116,12 @@ public static int valueOfExpr(StringBuilder source) {
  * </pre>
  */
 private static int valueOfTerm(StringBuilder source) {
-    int value = valueOfTerm(source);
+    int value = valueOfFactor(source);
 
     while (source.charAt(0) == '*' || source.charAt(0) == '/') {
-        char op = source.chatAt(0);
+        char op = source.charAt(0);
         source.deleteCharAt(0);
-        int nextValue = valueOfTerm(source);
+        int nextValue = valueOfFactor(source);
 
         if (op == '*') {
             value = value * nextValue;
@@ -154,7 +154,7 @@ private static int valueOfTerm(StringBuilder source) {
 private static int valueOfFactor(StringBuilder source) {
     int value = 0;
 
-    if (source.chatAt(0) == '(') {
+    if (source.charAt(0) == '(') {
         source.deleteCharAt(0);
         value = valueOfExpr(source);
         source.deleteCharAt(0);
