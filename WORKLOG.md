@@ -2,6 +2,8 @@
 
 <!-- markdownlint-disable MD024 --> (Aovid checckstyle for `duplicated title`)
 
+The initial commit date is 2026.03.08.
+
 All notable changes to this project will be documented in this file.
 
 The file records my personal work progress and notes for CSE 2231 (Software 2)
@@ -48,3 +50,4 @@ the following form: YYYY.0M.0D.
 ### Completed
 
 - Finished HW 27
+- Submitted Project 6
