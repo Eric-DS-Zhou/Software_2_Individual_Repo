@@ -82,7 +82,19 @@ have to waste time entering your code during the lab.
 public static int valueOfExpr(StringBuilder source) {
     int value = valueOfTerm(source);
 
-    
+    while (source.charAt(0) == '+' || source.charAt(0) == '-') {
+        char op = source.chatAt(0);
+        source.deleteCharAt(0);
+        int nextValue = valueOfTerm(source);
+
+        if (op == '+') {
+            value = value + nextValue;
+        } else {
+            value = value - nextValue;
+        }
+    }
+
+    return value;
 }
  
 /**
@@ -103,7 +115,23 @@ public static int valueOfExpr(StringBuilder source) {
  * #source = [longest term string at start of #source] * source
  * </pre>
  */
-private static int valueOfTerm(StringBuilder source) {...}
+private static int valueOfTerm(StringBuilder source) {
+    int value = valueOfTerm(source);
+
+    while (source.charAt(0) == '*' || source.charAt(0) == '/') {
+        char op = source.chatAt(0);
+        source.deleteCharAt(0);
+        int nextValue = valueOfTerm(source);
+
+        if (op == '*') {
+            value = value * nextValue;
+        } else {
+            value = value / nextValue;
+        }
+    }
+
+    return value;
+}
  
 /**
  * Evaluates a factor and returns its value.
@@ -123,7 +151,19 @@ private static int valueOfTerm(StringBuilder source) {...}
  * #source = [longest factor string at start of #source] * source
  * </pre>
  */
-private static int valueOfFactor(StringBuilder source) {...}
+private static int valueOfFactor(StringBuilder source) {
+    int value = 0;
+
+    if (source.chatAt(0) == '(') {
+        source.deleteCharAt(0);
+        value = valueOfExpr(source);
+        source.deleteCharAt(0);
+    } else {
+        value = valueOfDigitSeq(source);
+    }
+
+    return value;
+}
  
 /**
  * Evaluates a digit sequence and returns its value.
@@ -142,7 +182,15 @@ private static int valueOfFactor(StringBuilder source) {...}
  * #source = [longest digit-seq string at start of #source] * source
  * </pre>
  */
-private static int valueOfDigitSeq(StringBuilder source) {...}
+private static int valueOfDigitSeq(StringBuilder source) {
+    int value = valueOfDigit(source);
+
+    while (Character.isDigit(source.charAt(0))) {
+        value = value * 10 + valueOfDigit(source);
+    }
+
+    return value;
+}
  
 /**
  * Evaluates a digit and returns its value.
@@ -157,7 +205,12 @@ private static int valueOfDigitSeq(StringBuilder source) {...}
  * #source = [digit string at start of #source] * source
  * </pre>
  */
-private static int valueOfDigit(StringBuilder source) {...}
+private static int valueOfDigit(StringBuilder source) {
+    int value = Character.digit(source.charAt(0), 10);
+    source.deleteCharAt(0);
+
+    return value;
+}
 ```
 
 ## Submission
