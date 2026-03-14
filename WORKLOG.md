@@ -24,8 +24,11 @@ the following form: YYYY.0M.0D.
 
 ### Completed
 
-- Modified Project 4 according to the comments
 - Finished HW 24
+
+### Fixed
+
+- Modified Project 4 according to the comments
 
 ### In progress
 
@@ -43,6 +46,9 @@ the following form: YYYY.0M.0D.
 
 - Finished HW 26
 - Uploaded Project 6 to group repo
+
+### Fixed
+
 - Revised Project 4 based on the comments
 
 ## [2026.03.12]
@@ -62,4 +68,15 @@ the following form: YYYY.0M.0D.
 
 - Finished HW 28
 - Finished HW 29
-- Fixed HW27 based on the lecture
+- Finished Program2 for Project 7
+
+### Fixed
+
+- Fixed HW 27 based on the lecture
+
+### In progress
+
+- Working on Project 7
+
+`TO BE CONTINUED... :D`
+`By Eric Zhou`

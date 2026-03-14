@@ -107,7 +107,8 @@ public class Program2 extends ProgramSecondary {
     private void createNewRep() {
 
         this.name = "unknown";
-        this.context = 
+        this.context = new Map1L<String, Statement>();
+        this.body = new Statement1();
         // Make sure to use Statement1 from the library
         // Use Map1L for the context if you want the asserts below to match
 
@@ -170,26 +171,24 @@ public class Program2 extends ProgramSecondary {
         assert Tokenizer.isIdentifier(n) : ""
                 + "Violation of: n is a valid IDENTIFIER";
 
-        // TODO - fill in body
+        this.name = n;
 
     }
 
     @Override
     public final String name() {
 
-        // TODO - fill in body
+        String result = this.name;
 
-        // Fix this line to return the result.
-        return null;
+        return result;
     }
 
     @Override
     public final Map<String, Statement> newContext() {
 
-        // TODO - fill in body
+        Map<String, Statement> result = new Map1L<String, Statement>();
 
-        // Fix this line to return the result.
-        return null;
+        return result;
     }
 
     @Override
@@ -204,17 +203,19 @@ public class Program2 extends ProgramSecondary {
         assert allBlocks(c) : "Violation of: bodies in c"
                 + " are all BLOCK statements";
 
-        // TODO - fill in body
+        Map<String, Statement> temp = this.context;
+        this.context = c;
+        c.transferFrom(temp);
 
     }
 
     @Override
     public final Statement newBody() {
 
-        // TODO - fill in body
+        Statement result = new Statement1();
 
         // Fix this line to return the result.
-        return null;
+        return result;
     }
 
     @Override
@@ -223,7 +224,9 @@ public class Program2 extends ProgramSecondary {
         assert b instanceof Statement1 : "Violation of: b is a Statement1";
         assert b.kind() == Kind.BLOCK : "Violation of: b is a BLOCK statement";
 
-        // TODO - fill in body
+        Statement temp = this.body;
+        this.body = b;
+        b.transferFrom(temp);
 
     }
 
