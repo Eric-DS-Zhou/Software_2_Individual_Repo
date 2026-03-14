@@ -15,7 +15,7 @@ import components.utilities.Tokenizer;
  *             and [$this.body is a BLOCK statement]
  * @correspondence this = ($this.name, $this.context, $this.body)
  *
- * @author Put your name here
+ * @author Eric Zhou
  *
  */
 public class Program2 extends ProgramSecondary {
@@ -106,7 +106,8 @@ public class Program2 extends ProgramSecondary {
      */
     private void createNewRep() {
 
-        // TODO - fill in body
+        this.name = "unknown";
+        this.context = 
         // Make sure to use Statement1 from the library
         // Use Map1L for the context if you want the asserts below to match
 

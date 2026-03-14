@@ -11,7 +11,7 @@ import components.utilities.Tokenizer;
  * @convention [$this.rep is a valid representation of a Statement]
  * @correspondence this = $this.rep
  *
- * @author Put your name here
+ * @author Eric Zhou
  *
  */
 public class Statement2 extends StatementSecondary {
