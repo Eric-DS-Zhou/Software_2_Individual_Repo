@@ -48,8 +48,6 @@ your own feedback][feedback-form] after completing this assignment.
                <digit>
     <digit> => 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 
-`FORMAT (Markdown)` ![Problem 1](Problem1.png)
-
 ### Problem 2
 
 > Using the following rewrite rules for Boolean expressions, give a derivation
@@ -63,14 +61,12 @@ your own feedback][feedback-form] after completing this assignment.
 >                   → ( bool-exp OR bool-exp )
 
     bool-exp
-    => < bool-exp OR bool-exp >
-    => < NOT < bool-exp> OR bool-exp >
-    => < NOT < < bool-exp AND bool-exp > > OR bool-exp >
-    => < NOT < < F AND bool-exp > > OR bool-exp >
-    => < NOT < < F AND T > > OR bool-exp >
-    => < NOT < < F AND T > > OR F>
-
-`Format(Markdown)` ![Problem 2 format](Problem2Format.png)
+    => ( bool-exp OR bool-exp )
+    => ( NOT ( bool-exp ) OR bool-exp )
+    => ( NOT ( ( bool-exp AND bool-exp ) ) OR bool-exp )
+    => ( NOT ( ( F AND bool-exp ) ) OR bool-exp )
+    => ( NOT ( ( F AND T ) ) OR bool-exp )
+    => ( NOT ( ( F AND T ) ) OR F )
 
 ![Problem 2](problem2.png)
 
