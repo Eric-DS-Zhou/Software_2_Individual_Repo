@@ -234,10 +234,12 @@ public class Statement2 extends StatementSecondary {
         assert this.kind() == Kind.BLOCK : ""
                 + "Violation of: [this is a BLOCK statement]";
 
-        // TODO - fill in body
+        Sequence<Tree<StatementLabel>> children = this.rep.newSequenceOfTree();
+        StatementLabel label = this.rep.disassemble(children);
+        int result = children.length();
+        this.rep.assemble(label, children);
 
-        // Fix this line to return the result.
-        return 0;
+        return result;
     }
 
     @Override
@@ -286,7 +288,15 @@ public class Statement2 extends StatementSecondary {
         assert s2
                 .kind() == Kind.BLOCK : "Violation of: [s2 is a BLOCK statement]";
 
-        // TODO - fill in body
+        Statement2 localS1 = (Statement2) s1;
+        Statement2 localS2 = (Statement2) s2;
+        StatementLabel label = new StatementLabel(Kind.IF_ELSE, c);
+        Sequence<Tree<StatementLabel>> children = this.rep.newSequenceOfTree();
+        children.add(0, localS1.rep);
+        children.add(1, localS2.rep);
+        this.rep.assemble(label, children);
+        localS1.createNewRep();
+        localS2.createNewRep();
 
     }
 
@@ -302,10 +312,16 @@ public class Statement2 extends StatementSecondary {
         assert this.kind() == Kind.IF_ELSE : ""
                 + "Violation of: [this is an IF_ELSE statement]";
 
-        // TODO - fill in body
+        Statement2 localS1 = (Statement2) s1;
+        Statement2 localS2 = (Statement2) s2;
+        Sequence<Tree<StatementLabel>> children = this.rep.newSequenceOfTree();
+        StatementLabel label = this.rep.disassemble(children);
+        localS1.rep = children.remove(0);
+        localS2.rep = children.remove(0);
+        Condition result = label.condition;
+        this.createNewRep();
 
-        // Fix this line to return the result.
-        return null;
+        return result;
     }
 
     @Override
@@ -316,7 +332,12 @@ public class Statement2 extends StatementSecondary {
         assert s instanceof Statement2 : "Violation of: s is a Statement2";
         assert s.kind() == Kind.BLOCK : "Violation of: [s is a BLOCK statement]";
 
-        // TODO - fill in body
+        Statement2 localS1 = (Statement2) s;
+        StatementLabel label = new StatementLabel(Kind.WHILE, c);
+        Sequence<Tree<StatementLabel>> children = this.rep.newSequenceOfTree();
+        children.add(0, localS1.rep);
+        this.rep.assemble(label, children);
+        localS1.createNewRep();
 
     }
 
@@ -328,10 +349,14 @@ public class Statement2 extends StatementSecondary {
         assert this.kind() == Kind.WHILE : ""
                 + "Violation of: [this is a WHILE statement]";
 
-        // TODO - fill in body
+        Statement2 localS1 = (Statement2) s;
+        Sequence<Tree<StatementLabel>> children = this.rep.newSequenceOfTree();
+        StatementLabel label = this.rep.disassemble(children);
+        localS1.rep = children.remove(0);
+        Condition result = label.condition;
+        this.createNewRep();
 
-        // Fix this line to return the result.
-        return null;
+        return result;
     }
 
     @Override
@@ -340,7 +365,9 @@ public class Statement2 extends StatementSecondary {
         assert Tokenizer.isIdentifier(inst) : ""
                 + "Violation of: inst is a valid IDENTIFIER";
 
-        // TODO - fill in body
+        StatementLabel label = new StatementLabel(Kind.CALL, inst);
+        Sequence<Tree<StatementLabel>> children = this.rep.newSequenceOfTree();
+        this.rep.assemble(label, children);
 
     }
 
@@ -349,10 +376,12 @@ public class Statement2 extends StatementSecondary {
         assert this.kind() == Kind.CALL : ""
                 + "Violation of: [this is a CALL statement]";
 
-        // TODO - fill in body
+        Sequence<Tree<StatementLabel>> children = this.rep.newSequenceOfTree();
+        StatementLabel label = this.rep.disassemble(children);
+        String result = label.instruction;
+        this.createNewRep();
 
-        // Fix this line to return the result.
-        return null;
+        return result;
     }
 
 }
