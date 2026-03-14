@@ -106,7 +106,7 @@ public class Program2 extends ProgramSecondary {
      */
     private void createNewRep() {
 
-        this.name = "unknown";
+        this.name = "Unnamed";
         this.context = new Map1L<String, Statement>();
         this.body = new Statement1();
         // Make sure to use Statement1 from the library

@@ -1,7 +1,9 @@
 import components.sequence.Sequence;
 import components.statement.Statement;
 import components.statement.StatementSecondary;
+import components.statement.StatementKernel.Kind;
 import components.tree.Tree;
+import components.tree.Tree1;
 import components.utilities.Tokenizer;
 
 /**
@@ -116,7 +118,10 @@ public class Statement2 extends StatementSecondary {
      */
     private void createNewRep() {
 
-        // TODO - fill in body
+        this.rep = new Tree1<StatementLabel>();
+        StatementLabel root = new StatementLabel(Kind.BLOCK);
+        Sequence<Tree<StatementLabel>> children = this.rep.newSequenceOfTree();
+        this.rep.assemble(root, children);
 
     }
 
@@ -172,10 +177,12 @@ public class Statement2 extends StatementSecondary {
     @Override
     public final Kind kind() {
 
-        // TODO - fill in body
+        Sequence<Tree<StatementLabel>> children = this.rep.newSequenceOfTree();
+        StatementLabel label = this.rep.disassemble(children);
+        Kind result = label.kind;
+        this.rep.assemble(label, children);
 
-        // Fix this line to return the result.
-        return null;
+        return result;
     }
 
     @Override
@@ -190,7 +197,12 @@ public class Statement2 extends StatementSecondary {
                 + "Violation of: pos <= [length of this BLOCK]";
         assert s.kind() != Kind.BLOCK : "Violation of: [s is not a BLOCK statement]";
 
-        // TODO - fill in body
+        Statement2 local = (Statement2) s;
+        Sequence<Tree<StatementLabel>> children = this.rep.newSequenceOfTree();
+        StatementLabel label = this.rep.disassemble(children);
+        children.add(pos, local.rep);
+        this.rep.assemble(label, children);
+        local.createNewRep();
 
     }
 
@@ -209,7 +221,10 @@ public class Statement2 extends StatementSecondary {
          */
         Statement2 s = this.newInstance();
 
-        // TODO - fill in body
+        Sequence<Tree<StatementLabel>> children = this.rep.newSequenceOfTree();
+        StatementLabel label = this.rep.disassemble(children);
+        children.remove(pos);
+        this.rep.assemble(label, children);
 
         return s;
     }
