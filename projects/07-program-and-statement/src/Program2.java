@@ -203,8 +203,9 @@ public class Program2 extends ProgramSecondary {
         assert allBlocks(c) : "Violation of: bodies in c"
                 + " are all BLOCK statements";
 
-        Map<String, Statement> temp = this.context;
-        this.context = c;
+        Map<String, Statement> temp = this.newContext();
+        temp.transferFrom(this.context);
+        this.context.transferFrom(c);
         c.transferFrom(temp);
 
     }
@@ -224,8 +225,9 @@ public class Program2 extends ProgramSecondary {
         assert b instanceof Statement1 : "Violation of: b is a Statement1";
         assert b.kind() == Kind.BLOCK : "Violation of: b is a BLOCK statement";
 
-        Statement temp = this.body;
-        this.body = b;
+        Statement temp = this.newBody();
+        temp.transferFrom(this.body);
+        this.body.transferFrom(b);
         b.transferFrom(temp);
 
     }
