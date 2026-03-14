@@ -223,7 +223,7 @@ public class Statement2 extends StatementSecondary {
 
         Sequence<Tree<StatementLabel>> children = this.rep.newSequenceOfTree();
         StatementLabel label = this.rep.disassemble(children);
-        children.remove(pos);
+        s.rep = children.remove(pos);
         this.rep.assemble(label, children);
 
         return s;
