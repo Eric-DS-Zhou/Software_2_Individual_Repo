@@ -90,7 +90,37 @@ The following problems will give you practice with statements and recursion.
  * #tokens = [longest bool-expr string at start of #tokens] * tokens
  * </pre>
  */
-public static boolean valueOfBoolExpr(Queue<String> tokens) {...}
+public static boolean valueOfBoolExpr(Queue<String> tokens) {
+    String token = tokens.front();
+    boolean value;
+
+    if (token.equals("T")) {
+        tokens.dequeue();
+        value = true;
+    } else if (token.equals("F")) {
+        tokens.dequeue();
+        value = false;
+    } else if (token.equals("NOT")) {
+        tokens.dequeue();
+        tokens.dequeue();
+        boolean result = valueOfBoolExpr(tokens);
+        tokens.dequeue();
+        value = !result;
+    } else {
+        tokens.dequeue();
+        boolean left = valueOfBoolExpr(tokens);
+        String op = tokens.dequeue();
+        boolean right = valueOfBoolExpr(tokens);
+        if (op.equals("AND")) {
+            value = left && right;
+        } else {
+            value = left || right;
+        }
+        tokens.dequeue();
+    }
+
+    return value;
+}
 ```
 
 > As practice for the final exam (recursive-descent parsers will not be

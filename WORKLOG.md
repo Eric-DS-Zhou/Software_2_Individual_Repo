@@ -61,3 +61,5 @@ the following form: YYYY.0M.0D.
 ### Completed
 
 - Finished HW 28
+- Finished HW 29
+- Fixed HW27 based on the lecture
