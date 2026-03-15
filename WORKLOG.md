@@ -68,7 +68,7 @@ the following form: YYYY.0M.0D.
 
 - Finished HW 28
 - Finished HW 29
-- Finished Program2 for Project 7
+- Finished `Program2` for Project 7
 
 ### Fixed
 
@@ -76,7 +76,17 @@ the following form: YYYY.0M.0D.
 
 ### In progress
 
-- Working on Project 7
+- Working on `Statement2` for Project 7
+
+## [2026.03.14]
+
+### Completed
+
+- Finished Project 7
+
+### Fixed
+
+- Fixed `Program2` bases on the test plan
 
 `TO BE CONTINUED... :D`
 `By Eric Zhou`
