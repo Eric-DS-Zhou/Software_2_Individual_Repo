@@ -1,10 +1,12 @@
-# Worklog (Follow changelog to track the work)
+# ***Software Two Worklog***
+
+The worklog follow changelog to track the work in Software Two
 
 <!-- markdownlint-disable MD024 --> (Aovid checckstyle for `duplicated title`)
 
-The initial commit date is 2026.03.08.
+The initial commit date is `2026.03.08`.
 
-All notable changes to this project will be documented in this file.
+All notable changes to this cource will be documented in this file.
 
 The file records my personal work progress and notes for CSE 2231 (Software 2)
 
@@ -98,5 +100,14 @@ the following form: YYYY.0M.0D.
 
 - The representation of nonconditional jump in HW 30 [To be solved]
 
-`TO BE CONTINUED... :D`
-`By Eric Zhou`
+## ***Ending***
+
+***Special thanks to Professor `@Jeremy Grifski` for his guidance and support throughout Software II.***
+
+***Software II may be over, but my journey as a programmer is only just beginning.***
+
+***TO BE CONTINUED... :D***
+
+***By Eric Zhou***
+
+***2026.04.24***

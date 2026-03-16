@@ -199,7 +199,7 @@ public static int nextPrimitiveInstructionAddress(int[] cp, CellState wbs,
             } else if (cp[pc] == 6) { // ? non-conditional jump
                 next = cp[pc + 1];
             } else {
-                boolean cond = conditionalJumpCondtion(wbs, cp[pc]);
+                boolean cond = conditionalJumpCondition(wbs, cp[pc]);
 
                 if (cond) {
                     next = pc + 2;
