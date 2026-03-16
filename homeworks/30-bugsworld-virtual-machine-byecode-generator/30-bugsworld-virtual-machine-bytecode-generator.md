@@ -30,7 +30,7 @@ have to waste time entering your code during the lab.
 > discussed in class (especially slides 30-47). Use only the primitives:
 > MOVE, TURNLEFT, TURNRIGHT, INFECT, SKIP, and HALT; unconditional jump:
 > JUMP; and the conditional jumps: JUMP_IF_NOT_NEXT_IS_EMPTY,
-> JUMP_IF_NOT_NEXT_IS_NOT_EMPTY, etc.) Note that the tables may be bigger
+> JUMP_IF_NOT_NEXT_IS_NOT_EMPTY, etc. Note that the tables may be bigger
 > than the actual length of the generated code.
 
 ```bl
@@ -46,12 +46,12 @@ END Example1
 
 | Loc | Instruction |
 | --- | ----------- |
-| 0   |             |
-| 1   |             |
-| 2   |             |
-| 3   |             |
-| 4   |             |
-| 5   |             |
+| 0   | JUMP_IF_NOT_NEXT_IS_WALL            |
+| 1   | 5            |
+| 2   | TURNRIGHT    |
+| 3   | TURNRIGHT   |
+| 4   | INFECT      |
+| 5   | HALT        |
 | 6   |             |
 | 7   |             |
 | 8   |             |
@@ -74,16 +74,16 @@ END Example2
 
 | Loc | Instruction |
 | --- | ----------- |
-| 0   |             |
-| 1   |             |
-| 2   |             |
-| 3   |             |
-| 4   |             |
-| 5   |             |
-| 6   |             |
-| 7   |             |
-| 8   |             |
-| 9   |             |
+| 0   | JUMP_IF_NOT_NEXT_IS_WALL            |
+| 1   | 7            |
+| 2   | TURN RIGHT            |
+| 3   | TURN RIGHT            |
+| 4   | INFECT            |
+| 5   | JUMP            |
+| 6   | 9            |
+| 7   | INFECT            |
+| 8   | MOVE            |
+| 9   | HALT            |
 | 10  |             |
 
 ```bl
@@ -104,20 +104,20 @@ END Example3
 
 | Loc | Instruction |
 | --- | ----------- |
-| 0   |             |
-| 1   |             |
-| 2   |             |
-| 3   |             |
-| 4   |             |
-| 5   |             |
-| 6   |             |
-| 7   |             |
-| 8   |             |
-| 9   |             |
-| 10  |             |
-| 11  |             |
-| 12  |             |
-| 13  |             |
+| 0   | JUMP_IF_NOT_NEXT_IS_NOT_EMPTY            |
+| 1   | 13            |
+| 2   | JUMP_IF_NOT_NEXT_IS_WALL            |
+| 3   | 9            |
+| 4   | TURNRIGHT            |
+| 5   | TURNRIGHT            |
+| 6   | INFECT            |
+| 7   | JUMP            |
+| 8   | 11            |
+| 9   | INFECT            |
+| 10  | MOVE            |
+| 11  | JUMP           |
+| 12  | 0            |
+| 13  | HALT            |
 | 14  |             |
 | 15  |             |
 
@@ -141,16 +141,16 @@ END Example4
 
 | Loc | Instruction |
 | --- | ----------- |
-| 0   |             |
-| 1   |             |
-| 2   |             |
-| 3   |             |
-| 4   |             |
-| 5   |             |
-| 6   |             |
-| 7   |             |
-| 8   |             |
-| 9   |             |
+| 0   | JUMP_IF_NOT_TRUE            |
+| 1   | 9            |
+| 2   | TURNRIGHT            |
+| 3   | TURNRIGHT            |
+| 4   | JUMP_IF_NOR_NEXT_IS_ENEMY            |
+| 5   | 7            |
+| 6   | INFECT            |
+| 7   | JUMP            |
+| 8   | 0            |
+| 9   | HALT            |
 | 10  |             |
 | 11  |             |
 | 12  |             |
@@ -191,7 +191,25 @@ END Example4
  * </pre>
  */
 public static int nextPrimitiveInstructionAddress(int[] cp, CellState wbs,
-        int pc) {...}
+        int pc) {
+            int next = pc;
+
+            if (isPrimitiveInstructionByteCode(cp[pc])) {
+                next = pc + 1;
+            } else if (cp[pc] == 6) { // ? non-conditional jump
+                next = cp[pc + 1];
+            } else {
+                boolean cond = conditionalJumpCondtion(wbs, cp[pc]);
+
+                if (cond) {
+                    next = pc + 2;
+                } else {
+                    next = cp[pc + 1];
+                }
+            }
+
+            return next;
+        }
 ```
 
 > In implementing nextPrimitiveInstructionAddress, you will need the
