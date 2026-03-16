@@ -88,7 +88,15 @@ the following form: YYYY.0M.0D.
 
 - Fixed `Program2` bases on the test plan
 
+## [2026.03.15]
 
+### Completed
+
+- Finished HW 30
+
+### Question
+
+- The representation of nonconditional jump in HW 30 [To be solved]
 
 `TO BE CONTINUED... :D`
 `By Eric Zhou`
