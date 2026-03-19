@@ -125,6 +125,19 @@ private static void generateCodeForStatement(Statement s,
             break;
         }
         // remaining case CALL goes here
+
+        case CALL: {
+            String call = s.disassembleCall();
+
+            if (context.hasKey(call)){
+                generateCodeForStatement(context.value(call), context, cp);
+            } else {
+                cp.add(cp.length(), Instruction.valueOf(call.toUpperCase()).byteCode());
+            }
+
+            s.assembleCall(call);
+            break;
+        }
     }
 }
 ```
