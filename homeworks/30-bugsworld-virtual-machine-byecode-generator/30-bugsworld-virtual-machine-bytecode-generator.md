@@ -2,7 +2,7 @@
 
 - **Name**: Eric Zhou
 - **Dot Number**: zhou.4898
-- **Due Date**: Apr 2 @ 4:10 PM EST
+- **Due Date**: Apr 02 @ 4:10 PM EST
 
 ## Preparation
 

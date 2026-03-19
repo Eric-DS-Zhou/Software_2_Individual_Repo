@@ -106,6 +106,12 @@ the following form: YYYY.0M.0D.
 
 - Finished Portfolio Project `04-abstract class`
 
+## [2026.03.19]
+
+### Completed
+
+- Finished HW 31
+
 ## ***Ending***
 
 ***Special thanks to Professor `@Jeremy Grifski` for his guidance and support throughout Software II.***
