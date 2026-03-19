@@ -100,6 +100,12 @@ the following form: YYYY.0M.0D.
 
 - The representation of nonconditional jump in HW 30 [To be solved]
 
+## [2026.03.18]
+
+### Completed
+
+- Finished Portfolio Project `04-abstract class`
+
 ## ***Ending***
 
 ***Special thanks to Professor `@Jeremy Grifski` for his guidance and support throughout Software II.***
