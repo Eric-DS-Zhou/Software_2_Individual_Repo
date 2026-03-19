@@ -59,7 +59,12 @@ private static void generateCodeForStatement(Statement s,
     switch (s.kind()) {
         case BLOCK: {
  
-            // TODO - fill in case
+            int length = s.lengthOfBlock();
+            for (int i = 0; i < length; i++) {
+                Statement child = s.removeFromBlock(i);
+                generateCodeForStatement(child, context, cp);
+                s.addToBlock(i, child);
+            }
  
             break;
         }
@@ -76,13 +81,46 @@ private static void generateCodeForStatement(Statement s,
         }
         case IF_ELSE: {
  
-            // TODO - fill in case
+            Statement thenPart = s.newInstance();
+            Statement elsePart = s.newInstance();
+            Condition c = s.disassembleIfElse(thenPart, elsePart);
+
+            cp.add(cp.length(), conditionalJump(c).byteCode());
+            int jumpToElse = cp.length();
+            cp.add(cp.length(), dummy);
+
+            generateCodeForStatement(thenPart, context, cp);
+
+            cp.add(cp.length(), Instruction.JUMP.byteCode());
+            int jumpWithoutElse = cp.length();
+            cp.add(cp.length(), dummy);
+
+            cp.replaceEntry(jumpToElse, cp.length());
+            generateCodeForStatement(elsePart, context, cp);
+
+            cp.replaceEntry(jumpWithoutElse, cp.length());
+
+            s.assembleIfElse(c, thenPart, elsePart);
  
             break;
         }
         case WHILE: {
  
-            // TODO - fill in case
+            int whileLocation = cp.length();
+            Statement body = s.newInstance();
+            Condition c = s.disassembleWhile(body);
+
+            cp.add(cp.length(), conditionalJump(c).byteCode());
+            int jumpLocation = cp.length();
+            cp.add(cp.length(), dummy);
+
+            generateCodeForStatement(body, context, cp);
+            cp.add(cp.length(), Instruction.JUMP.byteCode());
+            cp.add(cp.length(), whileLocation);
+
+            cp.replaceEntry(jumpLocation, cp.length());
+
+            s.assembleWhile(c, body);
  
             break;
         }
