@@ -47,6 +47,22 @@ have to waste time entering your code during the lab.
 > homework, turn in PDF print-outs of the WaitingLineKernel.java and WaitingLine.java files.
 
 ```java
+/**
+ * First-in-first-out (FIFO) waiting line kernel component with primary methods.
+ *
+ * @param <T>
+ *          type of entries
+ * @mathmodel type WaitingLineKernel is modeled by string of T
+ * @constraint for all i,j: integer
+ *             where (0 <= i < |this| and 0 <= j < |this| and i /= j)
+ *             (this[i] /= this[j])
+ * @initially {@code
+ * ():
+ *  ensures
+ * this = <>
+ * }
+ * @iterator ~this.seen * ~this.unseen = this
+ */
 public interface WaitingLineKernel<T> extends Standard<WaitingLine<T>>, Iterable<T> {
 
     /**
@@ -83,6 +99,12 @@ public interface WaitingLineKernel<T> extends Standard<WaitingLine<T>>, Iterable
 ```
 
 ```java
+/**
+ * {@code WaitingLinekernel} enhanced with secondary methods.
+ *
+ * @param <T>
+ *          type of entries
+ */
 public interface WaitingLine<T> extends WaitingLineKernel<T> {
 
     /**
