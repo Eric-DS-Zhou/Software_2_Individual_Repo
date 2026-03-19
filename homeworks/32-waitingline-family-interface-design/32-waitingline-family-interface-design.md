@@ -49,12 +49,84 @@ have to waste time entering your code during the lab.
 ```java
 public interface WaitingLineKernel<T> extends Standard<WaitingLine<T>>, Iterable<T> {
 
+    /**
+     * Adds {@code x} to the end of {@code this}.
+     *
+     * @param x
+     *          the entry to be added
+     * @aliases reference {@code x}
+     * @updates this
+     * @requires x is not in this
+     * @ensures this = #this * <x>
+     */
+    void add(T x);
+
+    /**
+     * Removes and returns the entry at the front of {@code this}.
+     *
+     * @return the entry removed
+     * @updates this
+     * @requires this /= <>
+     * @ensures #this = <removeFirst> * this
+     */
+    T removeFirst();
+
+    /**
+     * Reports the length of {@code this}.
+     *
+     * @return the length of {@code this}
+     * @ensures length = |this|
+     */
+    int length();
+
 }
 ```
 
 ```java
 public interface WaitingLine<T> extends WaitingLineKernel<T> {
 
+    /**
+     * Reports the entry at the front of {@code this}.
+     *
+     * @return the entry at the front of {@code this}
+     * @aliases reference returned by {@code front}
+     * @requires this /= <>
+     * @ensures <front> is prefix of this
+     */
+    T front();
+
+    /**
+     * Reports whether {@code x} is in {@code this}.
+     *
+     * @param x
+     *          the entry to be checked
+     * @return true iff {@code x} is in {@code this}
+     * @ensures contains = (x is in this)
+     */
+    boolean contains(T x);
+
+    /**
+     * Removes and returns {@code x} from {@code this}.
+     *
+     * @param x
+     *          the entry to be removed
+     * @return the entry removed
+     * @updates this
+     * @requires x is in this
+     * @ensures #this = s1 * <x> * s2
+     */
+    T remove(T x);
+
+    /**
+     * Reports the position of {@code x} in {@code this}.
+     *
+     * @param x
+     *          the entry whose position is to be asked
+     * @return the position of {@code x}
+     * @requires x is in this
+     * @ensures position for s1 * <x> * s2, position = |s1|
+     */
+    int position(T x);
 }
 ```
 

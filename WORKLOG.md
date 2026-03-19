@@ -111,6 +111,7 @@ the following form: YYYY.0M.0D.
 ### Completed
 
 - Finished HW 31
+- Finished HW 32
 
 ## ***Ending***
 
