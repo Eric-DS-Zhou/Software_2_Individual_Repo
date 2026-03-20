@@ -1,8 +1,8 @@
 # [Homework 33: WaitingLine Family Class Implementation][hw33]
 
-- **Name**: <!-- TODO: fill with first and last name (e.g., Brutus Buckeye) -->
-- **Dot Number**: <!-- TODO: fill with OSU dot number (e.g., buckeye.17) -->
-- **Due Date**: <!-- TODO: fill out with due date and time (e.g., 10/17 @ 3:10 PM EST) -->
+- **Name**: EriC Zhou
+- **Dot Number**: zhou.4898
+- **Due Date**: Apr 14 @ 4:10 PM EST
 
 ## Preparation
 
@@ -38,20 +38,118 @@ have to waste time entering your code during the lab.
 > of the WaitingLineSecondary.java file.
 
 ```java
-public class WaitingLineSecondary<T> extends WaitingLine<T> {
+public class WaitingLineSecondary<T> extends WaitingLine<T> { // ? implement or extends
+
     @Override
     public boolean equals(Object o) {
-
+        boolean isEqual = true;
+        if (o == null) {
+            isEqual = false;
+        } else if (!(o instanceof WaitingLine<?>)) {
+            isEqual = false;
+        } else {
+            WaitingLine<?> other = (WaitingLine<?>) o;
+            if (this.length() != other.length()) {
+                isEqual = false;
+            } else {
+                Iterator<T> it1 = this.iterator();
+                Iterator<?> it2 = other.iterator();
+                while (it1.hasNext()) {
+                    T x1 = it1.next();
+                    Object x2 = it2.next();
+                    if (isEqual && !x1.equals(x2)) {
+                        isEqual = false;
+                    }
+                }
+            }
+        }
+        return isEqual;
     }
+
 
     @Override
     public int hashCode() {
-
+        int result = 1;
+        Iterator<T> it = this.iterator();
+        while (it.hasNext()) {
+            T x = it.next();
+            result = 31 * result + x.hashCode();
+        }
+        return result;
     }
 
     @Override
     public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<");
+        Iterator<T> it = this.iterator();
+        boolean first = true;
+        while (it.hasNext()) {
+            T x = it.next();
+            if (!first) {
+                sb.append(", ");
+            }
+            sb.append(x);
+            first = false;
+        }
+        sb.append(">");
+        return sb.toString();
+    }
 
+    @Override
+    public T front() {
+        Iterator<T> it = this.iterator();
+        T frontEntry = it.next();
+        return frontEntry;
+    }
+
+    @Override
+    public boolean contains(T x) {
+        boolean found = false;
+        Iterator<T> it = this.iterator();
+        while (!found && it.hasNext()) {
+            T current = it.next();
+            if (current.equals(x)) {
+                found = true;
+            }
+        }
+        return found;
+    }
+
+    @Override
+    public T remove(T x) {
+        int n = this.length();
+        T removedEntry = this.removeFirst();
+        int i = 1;
+
+        while (!removedEntry.equals(x) && i < n) {
+            this.add(removedEntry);
+            removedEntry = this.removeFirst();
+            i++;
+        }
+
+        while (i < n) {
+            T front = this.removeFirst();
+            this.add(front);
+            i++;
+        }
+
+        return removedEntry;
+    }
+
+    @Override
+    public int position(T x) {
+        int pos = 0;
+        int answer = -1;
+        Iterator<T> it = this.iterator();
+        while (answer < 0 && it.hasNext()) {
+            T current = it.next();
+            if(current.equals(x)){
+                answer = pos;
+            }
+            pos++;
+        }
+        return answer;
     }
 }
 ```
