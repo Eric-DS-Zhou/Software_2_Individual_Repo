@@ -1,8 +1,8 @@
 # [Homework 36: Java File I/O][hw36]
 
-- **Name**: <!-- TODO: fill with first and last name (e.g., Brutus Buckeye) -->
-- **Dot Number**: <!-- TODO: fill with OSU dot number (e.g., buckeye.17) -->
-- **Due Date**: <!-- TODO: fill out with due date and time (e.g., 10/17 @ 3:10 PM EST) -->
+- **Name**: Eric Zhou
+- **Dot Number**: zhou.4898
+- **Due Date**: Apr 21 @ 4:10 PM EST
 
 ## Preparation
 
@@ -37,7 +37,16 @@ have to waste time entering your code during the lab.
 
 ```java
 public static void main(String[] args) {
+    SimpleReader in = new SimpleReader1L(args[0]);
+    SimpleWriter out = new SimpleWriter1L(args[1]);
 
+    while (!in.atEOS()) {
+        String line = in.nextLine();
+        out.println(line);
+    }
+
+    in.close;
+    out.close;
 }
 ```
 
@@ -50,7 +59,17 @@ public static void main(String[] args) {
 
 ```java
 public static void main(String[] args) {
+    BufferedReader input = new BufferedReader(new FileReader(args[0]));
+    PrintWriter output = new PrintWriter(new BufferedWriter(new FileWriter(args[1])));
 
+    String line = input.readline();
+    while (line != null){
+        output.println(line);
+        line = input.readLine();
+    }
+
+    input.close();
+    output.close();
 }
 ```
 
@@ -62,7 +81,34 @@ public static void main(String[] args) {
 
 ```java
 public static void main(String[] args) {
+    BufferedReader input;
+    PrintWriter output;
 
+    try {
+        input = new BufferedReader(new FileReader(args[0]));
+        output = new PrintWriter(new BufferedWriter(new FileWriter(args[1])));
+    } catch (IOException e) {
+        System.err.println("Error opening file");
+        return;
+    }
+
+    try {
+        String s = input.readLine();
+        while (s != null) {
+            output.println(s);
+            s = input.readLine();
+        }
+    } catch (IOException e) {
+        System.err.println("Error reading from file");
+    }
+
+    try {
+        input.close();
+    } catch (IOException e) {
+        System.err.println("Error closing file");
+    }
+
+    output.close;
 }
 ```
 

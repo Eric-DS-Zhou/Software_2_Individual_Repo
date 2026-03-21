@@ -120,6 +120,12 @@ the following form: YYYY.0M.0D.
 - Finished HW 33
 - Finished HW 34
 
+## [2026.03.21]
+
+### Completed
+
+- Finished HW 35
+
 ## ***Ending***
 
 ***Special thanks to Professor `@Jeremy Grifski` for his guidance and support throughout Software II.***
