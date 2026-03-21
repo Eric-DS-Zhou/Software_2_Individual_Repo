@@ -1,8 +1,8 @@
 # [Homework 35: The Java Collections Framework 2][hw35]
 
-- **Name**: <!-- TODO: fill with first and last name (e.g., Brutus Buckeye) -->
-- **Dot Number**: <!-- TODO: fill with OSU dot number (e.g., buckeye.17) -->
-- **Due Date**: <!-- TODO: fill out with due date and time (e.g., 10/17 @ 3:10 PM EST) -->
+- **Name**: Eric Zhou
+- **Dot Number**: zhou.4898
+- **Due Date**: Apr 16 @ 4:10 PM EST
 
 ## Preparation
 
@@ -52,7 +52,22 @@ have to waste time entering your code during the lab.
  * </pre>
  */
 private static void giveRaise(components.map.Map<String, Integer> map,
-        char initial, int raisePercent) {...}
+        char initial, int raisePercent) {
+
+    components.map.Map<String, Integer> temp = map.newInstance();
+
+    while (map.size() > 0) {
+        components.map.Map.Pair<String, Integer> p = map.removeAny();
+        String name = p.key();
+        int salary = p.value();
+        if (name.charAt(0) == initial) {
+            salary = salary + salary * raisePercent / 100;
+        }
+        temp.add(name, salary);
+    }
+
+    map.transferFrom(temp);
+}
 ```
 
 ### Problem 2
@@ -88,7 +103,17 @@ private static void giveRaise(components.map.Map<String, Integer> map,
  * </pre>
  */
 private static void giveRaise(java.util.Map<String, Integer> map,
-        char initial, int raisePercent) {...}
+        char initial, int raisePercent) {
+    for (java.util.Map.Entry<String, Integer> entry : map.entrySet()) {
+        String name = entry.getKey();
+        int salary = entry.getValue();
+
+        if (name.charAt(0) == initial) {
+            salary = salary + salary * raisePercent / 100;
+            entry.setValue(salary);
+        }
+    }
+}
 ```
 
 ## Submission
