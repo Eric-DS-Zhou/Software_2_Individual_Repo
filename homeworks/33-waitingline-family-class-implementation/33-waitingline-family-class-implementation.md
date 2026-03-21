@@ -1,6 +1,6 @@
 # [Homework 33: WaitingLine Family Class Implementation][hw33]
 
-- **Name**: EriC Zhou
+- **Name**: Eric Zhou
 - **Dot Number**: zhou.4898
 - **Due Date**: Apr 14 @ 4:10 PM EST
 
