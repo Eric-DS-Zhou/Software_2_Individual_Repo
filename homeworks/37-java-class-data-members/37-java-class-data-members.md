@@ -1,8 +1,8 @@
 # [Homework 37: Java Class/Static Data Members - EmailAccount][hw37]
 
-- **Name**: <!-- TODO: fill with first and last name (e.g., Brutus Buckeye) -->
-- **Dot Number**: <!-- TODO: fill with OSU dot number (e.g., buckeye.17) -->
-- **Due Date**: <!-- TODO: fill out with due date and time (e.g., 10/17 @ 3:10 PM EST) -->
+- **Name**: Eric Zhou
+- **Dot Number**: zhou.4898
+- **Due Date**: Apr 23 @ 4:10 PM EST
 
 ## Preparation
 
@@ -48,7 +48,7 @@ have to waste time entering your code during the lab.
 /**
  * Implementation of {@code EmailAccount}.
  *
- * @author Put your name here
+ * @author Eric Zhou
  *
  */
 public final class EmailAccount1 implements EmailAccount {
@@ -57,7 +57,10 @@ public final class EmailAccount1 implements EmailAccount {
      * Private members --------------------------------------------------------
      */
 
-    // TODO - declare static and instance data members
+    Private String firstName;
+    Private String lastName;
+    Private String emailAddress;
+    Private static final Map<String, Integer> map = new Map1L<String, Integer>();
 
     /*
      * Constructor ------------------------------------------------------------
@@ -73,7 +76,21 @@ public final class EmailAccount1 implements EmailAccount {
      */
     public EmailAccount1(String firstName, String lastName) {
 
-        // TODO - fill in body
+        this.firstName = firstName;
+        this.lastName = lastName;
+
+        String lowerLast = lastName.toLowerCase();
+        int number = 0;
+
+        if(map.hasKey(lowerLast)) {
+            number = map.value(lowerLast) + 1;
+            map.replaceValue(lowerLast, number);
+        } else {
+            number = 1;
+            map.add(lowerLast, number);
+        }
+
+        this.emailAddress = lowerLast + "." + number + "@osu.edu";
 
     }
 
@@ -84,21 +101,24 @@ public final class EmailAccount1 implements EmailAccount {
     @Override
     public String name() {
 
-        // TODO - fill in body
+        String result = this.firstName + " " + this.lastName;
+        return result;
 
     }
 
     @Override
     public String emailAddress() {
 
-        // TODO - fill in body
+        String result = this.emailAddress;
+        return result;
 
     }
 
     @Override
     public String toString() {
 
-        // TODO - fill in body
+        String result = "Name: " + this.name() + ", Email: " + this.emailAddress();
+        return result;
 
     }
 
