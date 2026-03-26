@@ -1,7 +1,6 @@
 import components.sequence.Sequence;
 import components.statement.Statement;
 import components.statement.StatementSecondary;
-import components.statement.StatementKernel.Kind;
 import components.tree.Tree;
 import components.tree.Tree1;
 import components.utilities.Tokenizer;

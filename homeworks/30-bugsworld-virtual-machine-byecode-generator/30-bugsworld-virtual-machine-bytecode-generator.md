@@ -196,7 +196,7 @@ public static int nextPrimitiveInstructionAddress(int[] cp, CellState wbs,
 
             if (isPrimitiveInstructionByteCode(cp[pc])) {
                 next = pc + 1;
-            } else if (cp[pc] == 6) { // ? non-conditional jump
+            } else if (cp[pc] == Program.Instruction.JUMP.byteCode()) { // ? non-conditional jump
                 next = cp[pc + 1];
             } else {
                 boolean cond = conditionalJumpCondition(wbs, cp[pc]);
