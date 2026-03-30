@@ -11,7 +11,7 @@ import components.utilities.Tokenizer;
 /**
  * Layered implementation of secondary method {@code parse} for {@code Program}.
  *
- * @author Put your name here
+ * @author Eric Zhou
  *
  */
 public final class Program1Parse1 extends Program1 {

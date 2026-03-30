@@ -128,6 +128,18 @@ the following form: YYYY.0M.0D.
 - Finished HW 36
 - Finished HW 37
 
+## [2026.03.26]
+
+- Fixed HW 30 (Using Program.instruction.JUMP.byteCode() to represnt the non-conditional jump)
+- Fixed project 2 [group repo] (Based on the resubmission feedback)
+- Fixed project 4 [group repo] (Based on the submission feedback)
+
+## [2026.03.28]
+
+### Finished
+
+- Finished CSE 2231 Portfolio Project - Kernel Implementation (Q about arraylist and list)
+
 ## ***Ending***
 
 ***Special thanks to Professor `@Jeremy Grifski` for his guidance and support throughout Software II.***
