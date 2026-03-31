@@ -1,3 +1,4 @@
+import components.map.Map;
 import components.program.Program;
 import components.program.Program1;
 import components.queue.Queue;
@@ -6,6 +7,7 @@ import components.simplereader.SimpleReader1L;
 import components.simplewriter.SimpleWriter;
 import components.simplewriter.SimpleWriter1L;
 import components.statement.Statement;
+import components.utilities.Reporter;
 import components.utilities.Tokenizer;
 
 /**
@@ -55,11 +57,37 @@ public final class Program1Parse1 extends Program1 {
         assert body != null : "Violation of: body is not null";
         assert tokens.length() > 0 && tokens.front().equals("INSTRUCTION") : ""
                 + "Violation of: <\"INSTRUCTION\"> is proper prefix of tokens";
+        //TA就是先检查长度
 
-        // TODO - fill in body
+        tokens.dequeue();
+        //我们要检查length吗 0就拒绝dequeue (front or dequeue)
+        String instructionName = tokens.dequeue();
 
-        // This line added just to make the program compilable.
-        return null;
+        Reporter.assertElseFatalError(Tokenizer.isIdentifier(instructionName),
+                "Error: invalid instruction name: " + instructionName);
+        //tokenizer的keyword有啥 用哪个
+        Reporter.assertElseFatalError(!(instructionName.equals("move")
+                    || instructionName.equals("turnleft")
+                    || instructionName.equals("turnright")
+                    || instructionName.equals("infect")
+                    || instructionName.equals("skip")),
+                    "Error: instruction name cannot be a primitive instruction: "
+                    + instructionName);
+
+        Reporter.assertElseFatalError(tokens.dequeue().equals("IS"),
+                    "Error: missing IS in instruction.");
+
+        body.parseBlock(tokens);
+
+        Reporter.assertElseFatalError(tokens.dequeue().equals("END"),
+                    "Error: missing END in instruction.");
+
+        String endName = tokens.dequeue();
+        Reporter.assertElseFatalError(endName.equals(instructionName),
+                    "Error: instruction names do not match: " + instructionName
+                    + "!= " + endName);
+
+        return instructionName;
     }
 
     /*
@@ -91,8 +119,46 @@ public final class Program1Parse1 extends Program1 {
         assert tokens.length() > 0 : ""
                 + "Violation of: Tokenizer.END_OF_INPUT is a suffix of tokens";
 
-        // TODO - fill in body
+        Reporter.assertElseFatalError(tokens.dequeue().equals("PROGRAM"),
+                    "Error: Program must start with PROGRAM.");
 
+        String programName = tokens.dequeue();
+        Reporter.assertElseFatalError(Tokenizer.isIdentifier(programName),
+                    "Error: invalid program name: " + programName);
+        //话说program可以叫moveright吗
+        Reporter.assertElseFatalError(tokens.dequeue().equals("IS"),
+                    "Error: missing IS in program.");
+
+        Map<String, Statement> context = this.newContext();
+        while (tokens.front().equals("INSTRUCTIONI")) {
+            Statement instructionBody = this.newBody();
+            String instructionName = parseInstruction(tokens, instructionBody);
+
+            Reporter.assertElseFatalError(!context.hasKey(instructionName),
+                    "Error: Duplicate Instruction name: " + instructionName);
+
+            context.add(instructionName, instructionBody);
+        }
+
+        Reporter.assertElseFatalError(tokens.dequeue().equals("BEGIN"),
+                    "Error: missing BEGIN in program.");
+        Statement programBody = this.newBody();
+        programBody.parseBlock(tokens);
+
+        Reporter.assertElseFatalError(tokens.dequeue().equals("END"),
+                    "Error: missing END in program.");
+
+        String endName = tokens.dequeue();
+        Reporter.assertElseFatalError(endName.equals(programName),
+                    "Error: program names do not match: " + programName +
+                    "!= " + endName);
+
+        this.setName(programName);
+        this.swapContext(context);
+        this.swapBody(programBody);
+
+        Reporter.assertElseFatalError(tokens.dequeue().equals(Tokenizer.END_OF_INPUT),
+                    "Violation of: <Tokenizer.END_OF_INPUT> is a suffix of tokens");
     }
 
     /*
