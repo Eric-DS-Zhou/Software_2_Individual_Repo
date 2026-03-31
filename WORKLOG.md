@@ -130,6 +130,8 @@ the following form: YYYY.0M.0D.
 
 ## [2026.03.26]
 
+### Fixed
+
 - Fixed HW 30 (Using Program.instruction.JUMP.byteCode() to represnt the non-conditional jump)
 - Fixed project 2 [group repo] (Based on the resubmission feedback)
 - Fixed project 4 [group repo] (Based on the submission feedback)
@@ -138,7 +140,19 @@ the following form: YYYY.0M.0D.
 
 ### Finished
 
-- Finished CSE 2231 Portfolio Project - Kernel Implementation (Q about arraylist and list)
+- Finished Portfolio Project - Kernel Implementation (Q about arraylist and list)
+
+## [2026.03.30]
+
+### Finished
+
+- Finished Project 8 - Program1Parse1
+
+## [2026.03.31]
+
+### Finished
+
+- Finished Project 8
 
 ## ***Ending***
 
