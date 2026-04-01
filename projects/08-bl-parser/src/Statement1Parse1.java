@@ -6,6 +6,7 @@ import components.simplewriter.SimpleWriter1L;
 import components.statement.Statement;
 import components.statement.Statement1;
 import components.utilities.Tokenizer;
+import components.utilities.Reporter;
 
 /**
  * Layered implementation of secondary methods {@code parse} and
@@ -63,7 +64,40 @@ public final class Statement1Parse1 extends Statement1 {
         assert tokens.length() > 0 && tokens.front().equals("IF") : ""
                 + "Violation of: <\"IF\"> is proper prefix of tokens";
 
-        // TODO - fill in body
+        tokens.dequeue();
+        String condition =  tokens.dequeue();
+        Reporter.assertElseFatalError(Tokenizer.isCondition(condition),
+                    "Error: invalid condition: " + condition);
+        Condition condi = parseCondition(condition);
+
+        Reporter.assertElseFatalError(tokens.dequeue().equals("THEN"),
+                    "Error: missing THEN after the IF condition");
+
+        Statement thenBlock = s.newInstance();
+        thenBlock.parseBlock(tokens);
+
+        //check if ELSE loop exists
+        if (tokens.front().equals("ELSE")) {
+            tokens.dequeue();
+            Statement elseBlock = s.newInstance();
+            elseBlock.parseBlock(tokens);
+
+            Reporter.assertElseFatalError(tokens.dequeue().equals("END"),
+                    "Error: missing END in the IF statement");
+            Reporter.assertElseFatalError(tokens.dequeue().equals("IF"),
+                    "Error: missing IF in the IF statement");
+
+            s.assembleIfElse(condi, thenBlock, elseBlock);
+
+        } else { //expect end if
+
+            Reporter.assertElseFatalError(tokens.dequeue().equals("END"),
+                    "Error: missing END in the IF statement");
+            Reporter.assertElseFatalError(tokens.dequeue().equals("IF"),
+                    "Error: missing IF in the IF statement");
+
+            s.assembleIf(condi, thenBlock);
+        }
 
     }
 
@@ -94,7 +128,23 @@ public final class Statement1Parse1 extends Statement1 {
         assert tokens.length() > 0 && tokens.front().equals("WHILE") : ""
                 + "Violation of: <\"WHILE\"> is proper prefix of tokens";
 
-        // TODO - fill in body
+        tokens.dequeue();
+        String condition = tokens.dequeue();
+        Reporter.assertElseFatalError(Tokenizer.isCondition(condition),
+                    "Error: invalid condition: " + condition);
+        Condition condi = parseCondition(condition);
+
+        Reporter.assertElseFatalError(tokens.dequeue().equals("DO"),
+                    "Error: missing DO after the WHILE condition");
+        Statement body = s.newInstance();
+        body.parseBlock(tokens);
+
+        Reporter.assertElseFatalError(tokens.dequeue().equals("END"),
+                "Error: missing END in the WHILE statement");
+        Reporter.assertElseFatalError(tokens.dequeue().equals("WHILE"),
+                "Error: missing WHILE in the WHILE statement");
+
+        s.assembleWhile(condi, body);
 
     }
 
@@ -121,7 +171,8 @@ public final class Statement1Parse1 extends Statement1 {
                 && Tokenizer.isIdentifier(tokens.front()) : ""
                         + "Violation of: identifier string is proper prefix of tokens";
 
-        // TODO - fill in body
+        String callName = tokens.dequeue();
+        s.assembleCall(callName);
 
     }
 
@@ -146,7 +197,16 @@ public final class Statement1Parse1 extends Statement1 {
         assert tokens.length() > 0 : ""
                 + "Violation of: Tokenizer.END_OF_INPUT is a suffix of tokens";
 
-        // TODO - fill in body
+        String front = tokens.front();
+        if (front.equals("IF")) {
+            parseIf(tokens, this);
+        } else if (front.equals("WHILE")) {
+            parseWhile(tokens, this);
+        } else if (Tokenizer.isIdentifier(front)) {
+            parseCall(tokens, this);
+        } else {
+            Reporter.assertElseFatalError(false, "Error: invalid beginning " + front);
+        }
 
     }
 
@@ -156,7 +216,13 @@ public final class Statement1Parse1 extends Statement1 {
         assert tokens.length() > 0 : ""
                 + "Violation of: Tokenizer.END_OF_INPUT is a suffix of tokens";
 
-        // TODO - fill in body
+        this.clear();
+        while (!tokens.front().equals("END") && !tokens.front().equals("ELSE")
+                && !tokens.front().equals(Tokenizer.END_OF_INPUT)) {
+            Statement nextBlock = this.newInstance();
+            nextBlock.parse(tokens);
+            this.addToBlock(this.lengthOfBlock(), nextBlock);
+            }
 
     }
 

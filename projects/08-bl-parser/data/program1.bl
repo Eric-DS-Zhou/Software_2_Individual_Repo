@@ -4,7 +4,7 @@ PROGRAM Test IS
      move
      turnleft
   END one
-  
+
   INSTRUCTION two IS
     one
     IF next-is-not-empty THEN

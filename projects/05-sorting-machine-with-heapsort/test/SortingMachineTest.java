@@ -262,9 +262,13 @@ public abstract class SortingMachineTest {
     public final void testisInInsertionModeTrue() {
         SortingMachine<String> m = this.createFromArgsTest(ORDER, true, "b",
                 "a", "c");
+        SortingMachine<String> mExpected = this.createFromArgsTest(ORDER, true,
+                "b", "a", "c");
+
         boolean actual = m.isInInsertionMode();
         boolean expected = true;
         assertEquals(expected, actual);
+        assertEquals(mExpected, m);
     }
 
     /**
@@ -274,9 +278,13 @@ public abstract class SortingMachineTest {
     public final void testisInInsertionModeFalse() {
         SortingMachine<String> m = this.createFromArgsTest(ORDER, false, "b",
                 "a", "c");
+        SortingMachine<String> mExpected = this.createFromArgsTest(ORDER, false,
+                "b", "a", "c");
+
         boolean actual = m.isInInsertionMode();
         boolean expected = false;
         assertEquals(expected, actual);
+        assertEquals(mExpected, m);
     }
 
     // test cases for order
@@ -288,7 +296,11 @@ public abstract class SortingMachineTest {
     public final void testOrderForInsertionMode() {
         SortingMachine<String> m = this.createFromArgsTest(ORDER, true, "b",
                 "a", "c");
+        SortingMachine<String> mExpected = this.createFromArgsTest(ORDER, true,
+                "b", "a", "c");
+
         assertEquals(ORDER, m.order());
+        assertEquals(mExpected, m);
     }
 
     /**
@@ -298,7 +310,11 @@ public abstract class SortingMachineTest {
     public final void testOrderForExtractionMode() {
         SortingMachine<String> m = this.createFromArgsTest(ORDER, false, "b",
                 "a", "c");
+        SortingMachine<String> mExpected = this.createFromArgsTest(ORDER, false,
+                "b", "a", "c");
+
         assertEquals(ORDER, m.order());
+        assertEquals(mExpected, m);
     }
 
     // test cases for size

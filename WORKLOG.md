@@ -154,6 +154,10 @@ the following form: YYYY.0M.0D.
 
 - Finished Project 8
 
+### Fixed
+
+- Fixed Project 5 [group repo] (Based on the submission feedback)
+
 ## ***Ending***
 
 ***Special thanks to Professor `@Jeremy Grifski` for his guidance and support throughout Software II.***

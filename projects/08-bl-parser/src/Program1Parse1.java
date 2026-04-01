@@ -57,15 +57,15 @@ public final class Program1Parse1 extends Program1 {
         assert body != null : "Violation of: body is not null";
         assert tokens.length() > 0 && tokens.front().equals("INSTRUCTION") : ""
                 + "Violation of: <\"INSTRUCTION\"> is proper prefix of tokens";
-        //TA就是先检查长度
 
         tokens.dequeue();
-        //我们要检查length吗 0就拒绝dequeue (front or dequeue)
         String instructionName = tokens.dequeue();
 
+        //check the instructionName
         Reporter.assertElseFatalError(Tokenizer.isIdentifier(instructionName),
                 "Error: invalid instruction name: " + instructionName);
-        //tokenizer的keyword有啥 用哪个
+
+        //check primitive instructions
         Reporter.assertElseFatalError(!(instructionName.equals("move")
                     || instructionName.equals("turnleft")
                     || instructionName.equals("turnright")
@@ -125,12 +125,12 @@ public final class Program1Parse1 extends Program1 {
         String programName = tokens.dequeue();
         Reporter.assertElseFatalError(Tokenizer.isIdentifier(programName),
                     "Error: invalid program name: " + programName);
-        //话说program可以叫moveright吗
+
         Reporter.assertElseFatalError(tokens.dequeue().equals("IS"),
                     "Error: missing IS in program.");
 
         Map<String, Statement> context = this.newContext();
-        while (tokens.front().equals("INSTRUCTIONI")) {
+        while (tokens.front().equals("INSTRUCTION")) {
             Statement instructionBody = this.newBody();
             String instructionName = parseInstruction(tokens, instructionBody);
 
@@ -150,10 +150,10 @@ public final class Program1Parse1 extends Program1 {
 
         String endName = tokens.dequeue();
         Reporter.assertElseFatalError(endName.equals(programName),
-                    "Error: program names do not match: " + programName +
-                    "!= " + endName);
+                    "Error: program names do not match: " + programName
+                    + "!= " + endName);
 
-        this.setName(programName);
+        this.setName(programName); //set the program
         this.swapContext(context);
         this.swapBody(programBody);
 
