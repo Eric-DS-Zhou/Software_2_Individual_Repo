@@ -158,6 +158,12 @@ the following form: YYYY.0M.0D.
 
 - Fixed Project 5 [group repo] (Based on the submission feedback)
 
+## [2026.04.01]
+
+### Finished
+
+- Finished Midterm 2 Coding Question
+
 ## ***Ending***
 
 ***Special thanks to Professor `@Jeremy Grifski` for his guidance and support throughout Software II.***

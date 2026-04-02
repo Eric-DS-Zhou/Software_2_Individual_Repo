@@ -13,12 +13,14 @@ public static int emptyTree(Tree<T> t) {
         T root = t.disassemble(children);
         int length = children.length();
         for (int i = 0; i < length; i++) {
-            T child = children.remove(i);
+            Tree<T> child = children.remove(i);
             count = count + emptyTree(child);
-            child.add(i, child);
+            children.add(i, child);
         }
         t.assemble(root, children);
     }
+
+    return count;
 }
 
 ```
@@ -58,7 +60,8 @@ public final int rightLength() {
 public static void refactor(Statement s) {
     switch (s.kind()) {
         case BLOCK: {
-            for (int i = 0; i < s.lengthOfBlock(); i++) {
+            int length = s.lengthOfBlock();
+            for (int i = 0; i < length; i++) {
                 Statement bl = s.removeFromBlock(i);
                 refactor(bl);
                 s.addToBlock(i, bl);
