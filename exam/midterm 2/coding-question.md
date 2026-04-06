@@ -76,7 +76,7 @@ public static void refactor(Statement s) {
                 Statement block = s.newInstance();
                 s.assembleCall(name);
                 block.addToBlock(0, s);
-                s.assembleIf(Condition.NEXT_IS_EMPTY, block);
+                s.assembleIf(Statement.Condition.NEXT_IS_EMPTY, block);
             } else {
                 s.assembleCall(name);
             }

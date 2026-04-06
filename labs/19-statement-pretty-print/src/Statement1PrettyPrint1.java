@@ -1,3 +1,4 @@
+import components.program.Program;
 import components.queue.Queue;
 import components.simplereader.SimpleReader;
 import components.simplereader.SimpleReader1L;
@@ -139,31 +140,73 @@ public final class Statement1PrettyPrint1 extends Statement1 {
         switch (this.kind()) {
             case BLOCK: {
 
-                // TODO - fill in case
+                int len = this.lengthOfBlock();
+
+                for (int i = 0; i < len; i++) {
+                    Statement current = this.removeFromBlock(i);
+                    current.prettyPrint(out, offset);
+                    this.addToBlock(i, current);
+                }
 
                 break;
             }
             case IF: {
 
-                // TODO - fill in case
+                Statement sIf = this.newInstance();
+                Condition c = this.disassembleIf(sIf);
+
+                printSpaces(out, offset);
+                out.println("IF " + toStringCondition(c) + " THEN");
+                sIf.prettyPrint(out, offset + Program.INDENT_SIZE);
+                printSpaces(out, offset);
+                out.println("END IF");
+
+                this.assembleIf(c, sIf);
 
                 break;
             }
             case IF_ELSE: {
 
-                // TODO - fill in case
+                Statement sIf = this.newInstance();
+                Statement sElse = this.newInstance();
+                Condition c = this.disassembleIfElse(sIf, sElse);
+
+                printSpaces(out, offset);
+                out.println("IF " + toStringCondition(c) + " THEN");
+                sIf.prettyPrint(out, offset + Program.INDENT_SIZE);
+                printSpaces(out, offset);
+                out.println("ELSE");
+                sElse.prettyPrint(out, offset + Program.INDENT_SIZE);
+                printSpaces(out, offset);
+                out.println("END IF");
+
+                this.assembleIfElse(c, sIf, sElse);
 
                 break;
             }
             case WHILE: {
 
-                // TODO - fill in case
+                Statement sWhile = this.newInstance();
+                Condition c = this.disassembleWhile(sWhile);
+
+                printSpaces(out, offset);
+                out.println("WHILE " + toStringCondition(c) + " DO");
+                sWhile.prettyPrint(out, offset + Program.INDENT_SIZE);
+                printSpaces(out, offset);
+                out.println("END WHILE");
+
+                this.assembleWhile(c, sWhile);
 
                 break;
             }
             case CALL: {
 
-                // TODO - fill in case
+                String call = this.disassembleCall();
+
+                printSpaces(out, offset);
+                out.println(call);
+
+                this.assembleCall(call);
 
                 break;
             }
