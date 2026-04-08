@@ -3,7 +3,11 @@ import java.util.Comparator;
 import components.map.Map;
 import components.map.Map1L;
 import components.simplereader.SimpleReader;
+import components.simplereader.SimpleReader1L;
 import components.simplewriter.SimpleWriter;
+import components.simplewriter.SimpleWriter1L;
+import components.sortingmachine.SortingMachine;
+import components.sortingmachine.SortingMachine1L;
 
 /**
  * Generate an HTML tag cloud from the input file.
@@ -177,7 +181,7 @@ public final class TagCloud {
     }
 
     /**
-     * Print the footer of the HTML file
+     * Print the footer of the HTML file.
      *
      * @param out
      *            the output stream
@@ -187,5 +191,132 @@ public final class TagCloud {
         out.println("</div>");
         out.println("</body>");
         out.println("</html>");
+    }
+
+    /**
+     * Output the words in order.
+     *
+     * @param out
+     *            the output stream
+     * @param alpMachine
+     *            the sortmachine that restored words in alphabetical order
+     * @param minCount
+     *            minimum count
+     * @param maxCount
+     *            maximum count
+     */
+    private static void outputTags(SimpleWriter out,
+            SortingMachine<Map.Pair<String, Integer>> alpMachine, int minCount,
+            int maxCount) {
+        alpMachine.changeToExtractionMode();
+
+        while (alpMachine.size() > 0) {
+            Map.Pair<String, Integer> pair = alpMachine.removeFirst();
+            int size = fontSize(pair.value(), minCount, maxCount);
+
+            out.println("<span style=\"cursor: default\" class=\"f" + size
+                    + "\" title=\"count: " + pair.value() + "\">" + pair.key()
+                    + "</span>");
+        }
+    }
+
+    /**
+     * Select top words.
+     *
+     * @param countsMap
+     *            the map contains words and counts.
+     * @param n
+     *            top number
+     * @param alpMachine
+     *            the sorting machine to store the words in alpbetical order
+     * @param minMax
+     *            the map to store min and max count
+     */
+    private static void selectTop(Map<String, Integer> countsMap, int n,
+            SortingMachine<Map.Pair<String, Integer>> alpMachine,
+            Map<String, Integer> minMax) {
+        SortingMachine<Map.Pair<String, Integer>> countMachine = new
+                            SortingMachine1L<Map.Pair<String, Integer>>(new CountOrder());
+
+        while (countsMap.size() > 0) {
+            Map.Pair<String, Integer> pair = countsMap.removeAny();
+            countMachine.add(pair);
+        }
+
+        countMachine.changeToExtractionMode();
+
+        int num = 0;
+        int min = 0;
+        int max = 0;
+        boolean first = true;
+
+        while (num < n && countMachine.size() > 0) {
+            Map.Pair<String, Integer> pair = countMachine.removeFirst();
+            int currentCount = pair.value();
+            alpMachine.add(pair);
+
+            if (first) {
+                min = currentCount;
+                max = currentCount;
+                first = false;
+            } else {
+                if (currentCount < min) {
+                    min = currentCount;
+                }
+                if (currentCount > max) {
+                    max = currentCount;
+                }
+            }
+
+            num++;
+        }
+
+        minMax.add("min", min);
+        minMax.add("max", max);
+    }
+
+    /**
+     * Main method.
+     *
+     * @param args
+     *            the command line arguments
+     */
+    public static void main(String[] args) {
+        SimpleReader in = new SimpleReader1L();
+        SimpleWriter out = new SimpleWriter1L();
+
+        out.print("Enter the input file name: ");
+        String inputFileName = in.nextLine();
+
+        out.print("Enter the output file name: ");
+        String outputFileName = in.nextLine();
+
+        out.print("Enter the number of words: ");
+        int n = Integer.parseInt(in.nextLine());
+
+        SimpleReader inputFile = new SimpleReader1L(inputFileName);
+        SimpleWriter outputFile = new SimpleWriter1L(outputFileName);
+
+        Map<String, Integer> countsMap = count(inputFile);
+
+        SortingMachine<Map.Pair<String, Integer>> alpMachine = new
+                        SortingMachine1L<Map.Pair<String, Integer>>(new WordOrder());
+
+        Map<String, Integer> minMax = new Map1L<String, Integer>();
+
+        selectTop(countsMap, n, alpMachine, minMax);
+
+        printHeader(outputFile, inputFileName, n);
+
+        int minCount = minMax.value("min");
+        int maxCount = minMax.value("max");
+        outputTags(outputFile, alpMachine, minCount, maxCount);
+
+        printFooter(outputFile);
+
+        inputFile.close();
+        outputFile.close();
+        in.close();
+        out.close();
     }
 }
