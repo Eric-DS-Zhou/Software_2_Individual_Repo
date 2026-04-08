@@ -65,13 +65,13 @@ public final class Statement1Parse1 extends Statement1 {
                 + "Violation of: <\"IF\"> is proper prefix of tokens";
 
         tokens.dequeue();
-        String condition =  tokens.dequeue();
+        String condition = tokens.dequeue();
         Reporter.assertElseFatalError(Tokenizer.isCondition(condition),
-                    "Error: invalid condition: " + condition);
+                "Error: invalid condition: " + condition);
         Condition condi = parseCondition(condition);
 
         Reporter.assertElseFatalError(tokens.dequeue().equals("THEN"),
-                    "Error: missing THEN after the IF condition");
+                "Error: missing THEN after the IF condition");
 
         Statement thenBlock = s.newInstance();
         thenBlock.parseBlock(tokens);
@@ -131,11 +131,11 @@ public final class Statement1Parse1 extends Statement1 {
         tokens.dequeue();
         String condition = tokens.dequeue();
         Reporter.assertElseFatalError(Tokenizer.isCondition(condition),
-                    "Error: invalid condition: " + condition);
+                "Error: invalid condition: " + condition);
         Condition condi = parseCondition(condition);
 
         Reporter.assertElseFatalError(tokens.dequeue().equals("DO"),
-                    "Error: missing DO after the WHILE condition");
+                "Error: missing DO after the WHILE condition");
         Statement body = s.newInstance();
         body.parseBlock(tokens);
 
@@ -205,7 +205,8 @@ public final class Statement1Parse1 extends Statement1 {
         } else if (Tokenizer.isIdentifier(front)) {
             parseCall(tokens, this);
         } else {
-            Reporter.assertElseFatalError(false, "Error: invalid beginning " + front);
+            Reporter.assertElseFatalError(false,
+                    "Error: invalid beginning " + front);
         }
 
     }
@@ -222,7 +223,7 @@ public final class Statement1Parse1 extends Statement1 {
             Statement nextBlock = this.newInstance();
             nextBlock.parse(tokens);
             this.addToBlock(this.lengthOfBlock(), nextBlock);
-            }
+        }
 
     }
 

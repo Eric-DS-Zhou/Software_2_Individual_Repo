@@ -66,26 +66,27 @@ public final class Program1Parse1 extends Program1 {
                 "Error: invalid instruction name: " + instructionName);
 
         //check primitive instructions
-        Reporter.assertElseFatalError(!(instructionName.equals("move")
-                    || instructionName.equals("turnleft")
-                    || instructionName.equals("turnright")
-                    || instructionName.equals("infect")
-                    || instructionName.equals("skip")),
-                    "Error: instruction name cannot be a primitive instruction: "
-                    + instructionName);
+        Reporter.assertElseFatalError(
+                !(instructionName.equals("move")
+                        || instructionName.equals("turnleft")
+                        || instructionName.equals("turnright")
+                        || instructionName.equals("infect")
+                        || instructionName.equals("skip")),
+                "Error: instruction name cannot be a primitive instruction: "
+                        + instructionName);
 
         Reporter.assertElseFatalError(tokens.dequeue().equals("IS"),
-                    "Error: missing IS in instruction.");
+                "Error: missing IS in instruction.");
 
         body.parseBlock(tokens);
 
         Reporter.assertElseFatalError(tokens.dequeue().equals("END"),
-                    "Error: missing END in instruction.");
+                "Error: missing END in instruction.");
 
         String endName = tokens.dequeue();
         Reporter.assertElseFatalError(endName.equals(instructionName),
-                    "Error: instruction names do not match: " + instructionName
-                    + "!= " + endName);
+                "Error: instruction names do not match: " + instructionName
+                        + "!= " + endName);
 
         return instructionName;
     }
@@ -120,14 +121,14 @@ public final class Program1Parse1 extends Program1 {
                 + "Violation of: Tokenizer.END_OF_INPUT is a suffix of tokens";
 
         Reporter.assertElseFatalError(tokens.dequeue().equals("PROGRAM"),
-                    "Error: Program must start with PROGRAM.");
+                "Error: Program must start with PROGRAM.");
 
         String programName = tokens.dequeue();
         Reporter.assertElseFatalError(Tokenizer.isIdentifier(programName),
-                    "Error: invalid program name: " + programName);
+                "Error: invalid program name: " + programName);
 
         Reporter.assertElseFatalError(tokens.dequeue().equals("IS"),
-                    "Error: missing IS in program.");
+                "Error: missing IS in program.");
 
         Map<String, Statement> context = this.newContext();
         while (tokens.front().equals("INSTRUCTION")) {
@@ -141,24 +142,25 @@ public final class Program1Parse1 extends Program1 {
         }
 
         Reporter.assertElseFatalError(tokens.dequeue().equals("BEGIN"),
-                    "Error: missing BEGIN in program.");
+                "Error: missing BEGIN in program.");
         Statement programBody = this.newBody();
         programBody.parseBlock(tokens);
 
         Reporter.assertElseFatalError(tokens.dequeue().equals("END"),
-                    "Error: missing END in program.");
+                "Error: missing END in program.");
 
         String endName = tokens.dequeue();
         Reporter.assertElseFatalError(endName.equals(programName),
-                    "Error: program names do not match: " + programName
-                    + "!= " + endName);
+                "Error: program names do not match: " + programName + "!= "
+                        + endName);
 
         this.setName(programName); //set the program
         this.swapContext(context);
         this.swapBody(programBody);
 
-        Reporter.assertElseFatalError(tokens.dequeue().equals(Tokenizer.END_OF_INPUT),
-                    "Violation of: <Tokenizer.END_OF_INPUT> is a suffix of tokens");
+        Reporter.assertElseFatalError(
+                tokens.dequeue().equals(Tokenizer.END_OF_INPUT),
+                "Violation of: <Tokenizer.END_OF_INPUT> is a suffix of tokens");
     }
 
     /*
