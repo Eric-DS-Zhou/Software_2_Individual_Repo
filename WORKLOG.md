@@ -164,6 +164,37 @@ the following form: YYYY.0M.0D.
 
 - Finished Midterm 2 Coding Question
 
+## [2026.04.05]
+
+### In progress
+
+- Working on Portfolio Project - Final touch
+
+## [2026.04.06]
+
+### Finished
+
+- Finished Lab 19 "PrettyPrint"
+
+## [2026.04.07]
+
+### In progress
+
+- Working on Portfolio Project - Final touch
+- Working on Project 9
+
+## [2026.04.08]
+
+### Finished
+
+- Finished CSE 2231 Project 9
+
+## [2026.04.09]
+
+### Updated
+
+- Updated Project 9 to the group repo
+
 ## ***Ending***
 
 ***Special thanks to Professor `@Jeremy Grifski` for his guidance and support throughout Software II.***
