@@ -159,7 +159,7 @@ public final class Program1Parse1 extends Program1 {
         this.swapBody(programBody);
 
         Reporter.assertElseFatalError(
-                tokens.dequeue().equals(Tokenizer.END_OF_INPUT),
+                tokens.front().equals(Tokenizer.END_OF_INPUT),
                 "Violation of: <Tokenizer.END_OF_INPUT> is a suffix of tokens");
     }
 

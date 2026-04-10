@@ -195,6 +195,10 @@ the following form: YYYY.0M.0D.
 
 - Updated Project 9 to the group repo
 
+### Fixed
+
+- Fixed Project 9 `Program1Parse1` (Based on TA's feedback)
+
 ## ***Ending***
 
 ***Special thanks to Professor `@Jeremy Grifski` for his guidance and support throughout Software II.***
