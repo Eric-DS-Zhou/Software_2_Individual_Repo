@@ -199,6 +199,13 @@ the following form: YYYY.0M.0D.
 
 - Fixed Project 9 `Program1Parse1` (Based on TA's feedback)
 
+## [2026.04.11]
+
+### Finished
+
+- Finished Portfolio Project - `HouseholdExpenseTrackerTest`
+- Finished Portfolio Project - `HouseholdExpenseTracker1`
+
 ## ***Ending***
 
 ***Special thanks to Professor `@Jeremy Grifski` for his guidance and support throughout Software II.***
