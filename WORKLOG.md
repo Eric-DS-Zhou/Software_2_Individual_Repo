@@ -223,6 +223,7 @@ the following form: YYYY.0M.0D.
 - Fixed Project 9 `Tagcloud` (Based on TA's feedback)
 - Fixed Portfolio Project - Final touch
 - Create pull request of `Final touch`
+- Fixed Project 7 `Program2`
 
 ## ***Ending***
 

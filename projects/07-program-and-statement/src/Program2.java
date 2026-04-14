@@ -186,9 +186,11 @@ public class Program2 extends ProgramSecondary {
     @Override
     public final Map<String, Statement> newContext() {
 
-        Map<String, Statement> result = new Map1L<String, Statement>();
+        //Map<String, Statement> result = new Map1L<String, Statement>();
 
-        return result;
+        //return result;
+
+        return this.context.newInstance();
     }
 
     @Override
@@ -203,7 +205,7 @@ public class Program2 extends ProgramSecondary {
         assert allBlocks(c) : "Violation of: bodies in c"
                 + " are all BLOCK statements";
 
-        Map<String, Statement> temp = this.newContext();
+        Map<String, Statement> temp = this.context.newInstance();
         temp.transferFrom(this.context);
         this.context.transferFrom(c);
         c.transferFrom(temp);
@@ -213,10 +215,11 @@ public class Program2 extends ProgramSecondary {
     @Override
     public final Statement newBody() {
 
-        Statement result = new Statement1();
+        //Statement result = new Statement1();
 
-        // Fix this line to return the result.
-        return result;
+        //return result;
+
+        return this.body.newInstance();
     }
 
     @Override
@@ -225,7 +228,7 @@ public class Program2 extends ProgramSecondary {
         assert b instanceof Statement1 : "Violation of: b is a Statement1";
         assert b.kind() == Kind.BLOCK : "Violation of: b is a BLOCK statement";
 
-        Statement temp = this.newBody();
+        Statement temp = this.body.newInstance();
         temp.transferFrom(this.body);
         this.body.transferFrom(b);
         b.transferFrom(temp);
