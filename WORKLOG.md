@@ -193,11 +193,11 @@ the following form: YYYY.0M.0D.
 
 ### Updated
 
-- Updated Project 9 to the group repo
+- Updated Project 8 to the group repo
 
 ### Fixed
 
-- Fixed Project 9 `Program1Parse1` (Based on TA's feedback)
+- Fixed Project 8 `Program1Parse1` (Based on TA's feedback)
 
 ## [2026.04.11]
 
@@ -205,6 +205,24 @@ the following form: YYYY.0M.0D.
 
 - Finished Portfolio Project - `HouseholdExpenseTrackerTest`
 - Finished Portfolio Project - `HouseholdExpenseTracker1`
+
+## [2026.04.12]
+
+### Finished
+
+- Finished Portfolio Project - Final touch
+
+## [2026.04.14]
+
+### Finished
+
+- Updated Project 9 to group repo
+
+### Modified
+
+- Fixed Project 9 `Tagcloud` (Based on TA's feedback)
+- Fixed Portfolio Project - Final touch
+- Create pull request of `Final touch`
 
 ## ***Ending***
 

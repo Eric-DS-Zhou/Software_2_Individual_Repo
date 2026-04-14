@@ -67,13 +67,7 @@ public final class TagCloud {
      * @return the result whether c is a sep
      */
     private static boolean isSep(char c) {
-        boolean result = false;
-
-        if (SEPARATORS.indexOf(c) >= 0) {
-            result = true;
-        }
-
-        return result;
+        return SEPARATORS.indexOf(c) >= 0;
     }
 
     /**
@@ -235,8 +229,8 @@ public final class TagCloud {
     private static void selectTop(Map<String, Integer> countsMap, int n,
             SortingMachine<Map.Pair<String, Integer>> alpMachine,
             Map<String, Integer> minMax) {
-        SortingMachine<Map.Pair<String, Integer>> countMachine = new
-                            SortingMachine1L<Map.Pair<String, Integer>>(new CountOrder());
+        SortingMachine<Map.Pair<String, Integer>> countMachine = new SortingMachine1L<>(
+                new CountOrder());
 
         while (countsMap.size() > 0) {
             Map.Pair<String, Integer> pair = countsMap.removeAny();
@@ -299,8 +293,8 @@ public final class TagCloud {
 
         Map<String, Integer> countsMap = count(inputFile);
 
-        SortingMachine<Map.Pair<String, Integer>> alpMachine = new
-                        SortingMachine1L<Map.Pair<String, Integer>>(new WordOrder());
+        SortingMachine<Map.Pair<String, Integer>> alpMachine = new SortingMachine1L<>(
+                new WordOrder());
 
         Map<String, Integer> minMax = new Map1L<String, Integer>();
 
