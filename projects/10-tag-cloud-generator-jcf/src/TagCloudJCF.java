@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -8,6 +10,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 /**
  * Generate an HTML tag cloud from the input file in real java.
@@ -218,11 +221,11 @@ public final class TagCloudJCF {
         Collections.sort(allEntries, new CountOrder());
 
         if (limit > allEntries.size()) {
-            limit = allEntries.size(); //do we need that ???
+            limit = allEntries.size();
         }
 
         while (index < limit) {
-            topWords.add(allEntries.get(index)); //get requires index < size ???
+            topWords.add(allEntries.get(index));
             index++;
         }
 
@@ -301,6 +304,37 @@ public final class TagCloudJCF {
      *            the command line arguments
      */
     public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
 
+        System.out.print("Enter the input file name: ");
+        String inputFileName = input.nextLine();
+
+        System.out.print("Enter the output file name: ");
+        String outputFileName = input.nextLine();
+
+        System.out.print("Enter the number of words: ");
+        int n = input.nextInt();
+
+        Map<String, Integer> counts = count(inputFileName);
+        List<Map.Entry<String, Integer>> topWords = selectTopWords(counts, n);
+
+        try {
+            PrintWriter out = new PrintWriter(
+                    new BufferedWriter(new FileWriter(outputFileName)));
+
+            int[] minMax = minMax(topWords);
+            int min = minMax[0];
+            int max = minMax[1];
+
+            printHeader(out, inputFileName, topWords.size());
+            outputTags(out, topWords, min, max);
+            printFooter(out);
+
+            out.close();
+        } catch (IOException e) {
+            System.err.println("Error writing output file: " + e.getMessage());
+        }
+
+        input.close();
     }
 }

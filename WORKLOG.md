@@ -225,6 +225,12 @@ the following form: YYYY.0M.0D.
 - Create pull request of `Final touch`
 - Fixed Project 7 `Program2`
 
+## [2026.04.15]
+
+### Finished
+
+- Finished Project 10 - Private methods
+
 ## ***Ending***
 
 ***Special thanks to Professor `@Jeremy Grifski` for his guidance and support throughout Software II.***
