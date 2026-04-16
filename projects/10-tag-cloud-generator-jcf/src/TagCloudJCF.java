@@ -31,7 +31,7 @@ public final class TagCloudJCF {
     /**
      * Separators Set.
      */
-    private static final String SEPARATORS = " \t\n\r,-.!?[]';:/\"";
+    private static final String SEPARATORS = " \t\n\r,-.!?[]()';:/\"";
 
     /**
      * Comparator that compares pairs by count.
@@ -42,7 +42,7 @@ public final class TagCloudJCF {
         @Override
         public int compare(Map.Entry<String, Integer> e1,
                 Map.Entry<String, Integer> e2) {
-            return e2.getvalue().compareTo(e1.getvalue());
+            return e2.getValue().compareTo(e1.getValue());
         }
     }
 
@@ -50,12 +50,12 @@ public final class TagCloudJCF {
      * Comparator that compares pairs by word.
      */
     private static final class WordOrder
-            implements Comparator<Map.Pair<String, Integer>> {
+            implements Comparator<Map.Entry<String, Integer>> {
 
         @Override
         public int compare(Map.Entry<String, Integer> e1,
                 Map.Entry<String, Integer> e2) {
-            return e1.getkey().compareToIgnoreCase(e2.getkey());
+            return e1.getKey().compareToIgnoreCase(e2.getKey());
         }
     }
 
@@ -98,10 +98,8 @@ public final class TagCloudJCF {
      * @param inFile
      *            the name of input file
      * @return the final count map
-     * @throws IOException
      */
-    private static Map<String, Integer> count(String inFile)
-            throws IOException {
+    private static Map<String, Integer> count(String inFile) {
         Map<String, Integer> counts = new HashMap<>();
 
         try {
@@ -130,7 +128,7 @@ public final class TagCloudJCF {
             in.close();
 
         } catch (IOException e) {
-            System.out.println("Error in reading file: " + e.getMessage());
+            System.err.println("Error in reading file: " + e.getMessage());
         }
 
         return counts;
@@ -163,17 +161,17 @@ public final class TagCloudJCF {
      *
      * @param out
      *            the output stream
-     * @param inputfileName
+     * @param inputFileName
      *            the name of the input file
      * @param n
      *            the number of words to be expected
      */
-    private static void printHeader(PrintWriter out, String inputfileName,
+    private static void printHeader(PrintWriter out, String inputFileName,
             int n) {
         out.println("<html>");
         out.println("<head>");
         out.println(
-                "<title>Top " + n + " Words in " + inputfileName + "</title>");
+                "<title>Top " + n + " Words in " + inputFileName + "</title>");
         out.println(
                 "<link href=\"https://cse22x1.engineering.osu.edu/2231/web-sw2/assignments/projects/tag-cloud-generator/data/tagcloud.css\" "
                         + "rel=\"stylesheet\" type=\"text/css\">");
@@ -181,7 +179,7 @@ public final class TagCloudJCF {
                 "<link href=\"tagcloud.css\" rel=\"stylesheet\" type=\"text/css\">");
         out.println("</head>");
         out.println("<body>");
-        out.println("<h2>Top " + n + " Words in " + inputfileName + "</h2>");
+        out.println("<h2>Top " + n + " Words in " + inputFileName + "</h2>");
         out.println("<hr>");
         out.println("<div class=\"cdiv\">");
         out.println("<p class=\"cbox\">");
@@ -201,7 +199,7 @@ public final class TagCloudJCF {
     }
 
     /**
-     * Return the top n words from the word count
+     * Return the top n words from the word count.
      *
      * @param counts
      *            the map that contains all words and their counts
@@ -214,7 +212,7 @@ public final class TagCloudJCF {
         List<Map.Entry<String, Integer>> allEntries = new ArrayList<>(
                 counts.entrySet());
         List<Map.Entry<String, Integer>> topWords = new ArrayList<>();
-        int limit = 0;
+        int limit = n;
         int index = 0;
 
         Collections.sort(allEntries, new CountOrder());
@@ -233,6 +231,13 @@ public final class TagCloudJCF {
         return topWords;
     }
 
+    /**
+     * The min count and the max count.
+     *
+     * @param entries
+     *            the list to find min and max
+     * @return the array contains min and max
+     */
     private static int[] minMax(List<Map.Entry<String, Integer>> entries) {
         int[] result = new int[2];
         if (entries.size() > 0) {
@@ -241,7 +246,7 @@ public final class TagCloudJCF {
             int max = entries.get(0).getValue();
 
             while (index < entries.size()) {
-                int current = emtries.get(index).getValue;
+                int current = entries.get(index).getValue();
 
                 if (current < min) {
                     min = current;
@@ -261,14 +266,30 @@ public final class TagCloudJCF {
         return result;
     }
 
-    private static void outputTags(PrintWriter out, List<Map.Entry<String, Integer>> topwords, int minCount, int maxCount) {
+    /**
+     * Output the html tags.
+     *
+     * @param out
+     *            the output stream
+     * @param topwords
+     *            the list contains all top words
+     * @param minCount
+     *            the minimum count of words
+     * @param maxCount
+     *            the maximum count of words
+     */
+    private static void outputTags(PrintWriter out,
+            List<Map.Entry<String, Integer>> topwords, int minCount,
+            int maxCount) {
         int index = 0;
 
         while (index < topwords.size()) {
-            Map.Entry<String, Integer>> pair = topwords.get(index);
-            int size = fontSize(pair.getvalue, minCount, maxCount);
+            Map.Entry<String, Integer> pair = topwords.get(index);
+            int size = fontSize(pair.getValue(), minCount, maxCount);
 
-            out.println("<span style=\"cursor: default\" class=\"f" + size + "\" title=\"count: " + pair.getValue() + "\">" + pair.getkey() + "</span>");
+            out.println("<span style=\"cursor: default\" class=\"f" + size
+                    + "\" title=\"count: " + pair.getValue() + "\">"
+                    + pair.getKey() + "</span>");
             index++;
         }
     }
