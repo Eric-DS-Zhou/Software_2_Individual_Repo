@@ -186,10 +186,6 @@ public class Program2 extends ProgramSecondary {
     @Override
     public final Map<String, Statement> newContext() {
 
-        //Map<String, Statement> result = new Map1L<String, Statement>();
-
-        //return result;
-
         return this.context.newInstance();
     }
 
@@ -214,10 +210,6 @@ public class Program2 extends ProgramSecondary {
 
     @Override
     public final Statement newBody() {
-
-        //Statement result = new Statement1();
-
-        //return result;
 
         return this.body.newInstance();
     }
