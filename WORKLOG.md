@@ -231,6 +231,22 @@ the following form: YYYY.0M.0D.
 
 - Finished Project 10 - Private methods
 
+## [2026.04.16]
+
+### Finished
+
+- Finished Project 10
+
+### Fixed
+
+- Fixed Project 8 `Program1Parse1`
+
+## [2026.04.17]
+
+### Updated
+
+- Updated Project 10 to group repo
+
 ## ***Ending***
 
 ***Special thanks to Professor `@Jeremy Grifski` for his guidance and support throughout Software II.***
