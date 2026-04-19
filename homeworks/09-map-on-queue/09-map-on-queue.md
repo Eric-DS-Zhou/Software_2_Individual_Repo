@@ -1,8 +1,8 @@
 # [Homework 9: Map Implementation on Queue][hw9]
 
-- **Name**: <!-- TODO: fill with first and last name (e.g., Brutus Buckeye) -->
-- **Dot Number**: <!-- TODO: fill with OSU dot number (e.g., buckeye.17) -->
-- **Due Date**: <!-- TODO: fill out with due date and time (e.g., 10/17 @ 3:10 PM EST) -->
+- **Name**: Eric Zhou
+- **Dot Number**: zhou.4898
+- **Due Date**: Feb 3 @ 4:10 PM EST
 
 ## Preparation
 
@@ -50,7 +50,26 @@ have to waste time entering your code during the lab.
  *  then there exists value: V (<(key, value)> is prefix of q)
  * </pre>
  */
-private static <K, V> void moveToFront(Queue<Pair<K, V>> q, K key) {...}
+private static <K, V> void moveToFront(Queue<Pair<K, V>> q, K key) {
+    Queue<Pair<K, V>> front = new Queue1L<>();
+    Queue<Pair<K, V>> rest = new Queue1L<>();
+
+    int n = q.length();
+    boolean found = false;
+    for (int i = 0; i < n; i++){
+        Pair<K, V> p = q.dequeue();
+
+        if(!found && p.key().equals(key)){
+            front.enqueue(p);
+            found = true;
+        } else {
+            rest.enqueue(p);
+        }
+    }
+    q.append(front);
+    q.append(rest);
+
+}
 ```
 
 > Note that moveToFront is a static, generic method: it is parameterized
@@ -89,7 +108,7 @@ import components.map.Map;
  * JUnit test fixture for {@code Map<String, String>}'s constructor and kernel
  * methods.
  *
- * @author Put your name here
+ * @author Eric Zhou
  *
  */
 public abstract class MapTest {
@@ -162,7 +181,153 @@ public abstract class MapTest {
         return map;
     }
 
-    // TODO - add test cases for constructor, add, remove, removeAny, value, hasKey, and size
+    //test case for constructor
+
+    @Test
+    public void testConstructor(){
+        Map<String, String> ref = this.constructorRef();
+        Map<String, String> test = this.constructorTest();
+
+        assertEquals(ref, test);
+    }
+
+    //test cases for add
+
+    //add to empty
+    @Test
+    public void testAddToEmpty(){
+        Map<String, String> ref = this.createFromArgsRef("a", "1");
+        Map<String, String> test = this.createFromArgsTest();
+
+        test.add("a", "1");
+
+        assertEquals(ref, test);
+    }
+
+    //add to nonempty
+    @Test
+    public void testAddToNonEmpty(){
+        Map<String, String> ref = this.createFromArgsRef("a", "1", "b", "2", "c", "3");
+        Map<String, String> test = this.createFromArgsTest("a", "1", "b", "2");
+
+        test.add("c", "3");
+
+        assertEquals(ref, test);
+    }
+
+    //test cases for remove
+
+    //empty after remove
+    @Test
+    public void testEmptyAfterRemove(){
+        Map<String, String> ref = this.createFromArgsRef();
+        Map<String, String> test = this.createFromArgsTest("a", "1");
+
+        Pair<String, String> removed = test.remove("a");
+
+        assertEquals("a", removed.key());
+        assertEquals("1", removed.value());
+        assertEquals(ref, test);
+    }
+
+    //nonempty after remove
+    @Test
+    public void testNonEmptyAfterRemove(){
+        Map<String, String> ref = this.createFromArgsRef("a", "1", "b", "2");
+        Map<String, String> test = this.createFromArgsTest("a", "1", "b", "2", "c", "3");
+
+        Pair<String, String> removed = test.remove("c");
+
+        assertEquals("c", removed.key());
+        assertEquals("3", removed.value());
+        assertEquals(ref, test);
+    }
+
+    //test cases for removeAny
+
+    //only one element
+    @Test
+    public void testRemoveAnyOnlyOneElement(){
+        Map<String, String> ref = this.createFromArgsRef();
+        Map<String, String> test = this.createFromArgsTest("a", "1");
+
+        Pair<String, String> removed = test.removeAny();
+
+        assertEquals("a", removed.key());
+        assertEquals("1", removed.value());
+        assertEquals(ref, test);
+    }
+
+    //normal removeAny
+    @Test
+    public void testRemoveAnyNormal(){
+        Map<String, String> ref = this.createFromArgsRef("a", "1", "b", "2", "c", "3");
+        Map<String, String> test = this.createFromArgsTest("a", "1", "b", "2", "c", "3");
+
+        Pair<String, String> removed = test.removeAny();
+
+        assertEquals(true, ref.hasKey(removed.key()));
+        ref.remove(removed.key());
+        assertEquals(ref, test);
+    }
+
+    //test cases for value
+
+    @Test
+    public void testValue(){
+        Map<String, String> test = this.createFromArgsTest("a", "1", "b", "2", "c", "3");
+        Map<String, String> ref = this.createFromArgsRef("a", "1", "b", "2", "c", "3");
+
+        assertEquals("1", test.value("a"));
+        assertEquals("2", test.value("b"));
+        assertEquals("3", test.value("c"));
+        assertEquals(ref, test);
+    }
+
+    //test cases for hasKey
+
+    //empty map for hasKey
+    @Test
+    public void testHasKeyEmpty(){
+        Map<String, String> test = this.createFromArgsTest();
+        Map<String, String> ref = this.createFromArgsRef();
+
+        assertEquals(false, test.hasKey("a"));
+        assertEquals(ref, test);
+    }
+
+    //normal case for hasKey
+    @Test
+    public void testHasKeyNonEmpty(){
+        Map<String, String> test = this.createFromArgsTest("a", "1", "b", "2", "c", "3");
+        Map<String, String> ref = this.createFromArgsRef("a", "1", "b", "2", "c", "3");
+
+        assertEquals(true, test.hasKey("a"));
+        assertEquals(false, test.hasKey("d"));
+        assertEquals(ref, test);
+    }
+
+    //test cases for size
+
+    //empty case for size
+    @Test
+    public void testSizeEmpty(){
+        Map<String, String> test = this.createFromArgsTest();
+        Map<String, String> ref = this.createFromArgsRef();
+
+        assertEquals(0, test.size());
+        assertEquals(ref, test);
+    }
+
+    //normal case for size
+    @Test
+    public void testSizeNonEmpty(){
+        Map<String, String> test = this.createFromArgsTest("a", "1", "b", "2", "c", "3");
+        Map<String, String> ref = this.createFromArgsRef("a", "1", "b", "2", "c", "3");
+
+        assertEquals(3, test.size());
+        assertEquals(ref, test);
+    }
 
 }
 ```
@@ -189,27 +354,27 @@ public abstract class MapTest {
 | Statement                                   | Variable Values    |
 | ------------------------------------------- | ------------------ |
 | Map<String, Integer> m = new Map1L<>();     |                    |
-|                                             | m = `?`            |
+|                                             | m = {}           |
 | m.add("one", 1);                            |                    |
-|                                             | m = `?`            |
+|                                             | m = {("one", 1)}            |
 | m.add("zero", 0);                           |                    |
-|                                             | m = `?`            |
+|                                             | m = {("one", 1), ("zero", 0)}            |
 | m.add("negative one", -1);                  |                    |
-|                                             | m = `?`            |
+|                                             | m = {("one", 1), ("zero", 0), ("negative one", -1)}            |
 | Pair<String, Integer> p = m.remove("zero"); |                    |
-|                                             | m = `?`<br>p = `?` |
+|                                             | m = {("one", 1),  ("negative one", -1)}<br>p = ("zero", 0) |
 | m.remove("one");                            |                    |
-|                                             | m = `?`<br>p = `?` |
+|                                             | m = {("negative one", -1)}<br>p = ("zero", 0) |
 | m.add("cipher", p.value());                 |                    |
-|                                             | m = `?`<br>p = `?` |
+|                                             | m = {("negative one", -1), ("cipher", 0)}<br>p = ("zero", 0) |
 | m.add(p.key(), p.value());                  |                    |
-|                                             | m = `?`<br>p = `?` |
+|                                             | m = {("negative one", -1), ("cipher", 0), ("zero", 0)}<br>p = ("zero", 0) |
 | m.remove("negative one");                   |                    |
-|                                             | m = `?`<br>p = `?` |
+|                                             | m = {("cipher", 0), ("zero", 0)}<br>p = ("zero", 0) |
 | m.remove("cipher");                         |                    |
-|                                             | m = `?`<br>p = `?` |
+|                                             | m = {("zero", 0)}<br>p = ("zero", 0) |
 | p = m.removeAny();                          |                    |
-|                                             | m = `?`<br>p = `?` |
+|                                             | m = {}<br>p = ("zero", 0) |
 
 ## Submission
 
@@ -225,4 +390,3 @@ reserve the right to give a zero.
 [feedback-form]: https://forms.gle/qJ1gEM5N1r6X7Poy5
 [markdown-to-pdf-guide]: https://therenegadecoder.com/blog/how-to-convert-markdown-to-a-pdf-3-quick-solutions/
 [map-test]: https://cse22x1.engineering.osu.edu/2231/web-sw2/assignments/homeworks/map-on-queue/MapTest.java
-[remove-any]: https://cse22x1.engineering.osu.edu/2231/web-sw2/assignments/homeworks/set-on-queue/test-removeany.html

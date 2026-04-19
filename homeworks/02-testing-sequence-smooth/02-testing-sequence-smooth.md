@@ -1,8 +1,8 @@
 # [Homework 2: Testing Sequence Smooth][hw2]
 
-- **Name**: <!-- TODO: fill with first and last name (e.g., Brutus Buckeye) -->
-- **Dot Number**: <!-- TODO: fill with OSU dot number (e.g., buckeye.17) -->
-- **Due Date**: <!-- TODO: fill out with due date and time (e.g., 10/17 @ 3:10 PM EST) -->
+- **Name**: Eric Zhou
+- **Dot Number**: zhou.4898
+- **Due Date**: Jan 15 @ 4:10 PM EST
 
 ## Preparation
 
@@ -47,7 +47,18 @@ Below you will find the list of problems for this homework assignment.
 public static void smooth(Sequence<Integer> s1, Sequence<Integer> s2) {...}
 ```
 
-<!-- TODO: consider listing off possible test cases -->
+Test Plan:
+
+input - output - type
+
+1. s1 = < 2, 4 >, s2 = < 3 >, minimum output
+2. s1 = < 1, 2 >, s2 = < 1 >, special integer division
+3. s1 = < 0, 5, 0 >, s2 = < 2, 2 >, contains zero
+4. s1 = < -3, -5, -7 >, s2 = < -4, -6 >, negative values
+5. s1 = < 5, 5, 5 >, s2 = < 5, 5 >, repeated value
+6. s1 = < 2, -5, 11, -4, 0 >, s2 = < -1, 3, 3, -2 >, both positive number and negative number
+7. s1 = < 1000000, 1000002 >, s2 = < 1000001 >, large number
+8. s1 = < 7 >, s2 = < >, minimum input size
 
 ### Problem 2
 
@@ -57,7 +68,165 @@ public static void smooth(Sequence<Integer> s1, Sequence<Integer> s2) {...}
 > homework.
 
 ```java
-// TODO: Put test cases here.
+/**
+ * Test smooth with s1 = < 2, 4 >, s2 = < 2, 4 >.
+ **/
+@Test
+public void test1(){
+    /*
+     * Set up variables and call method under test
+     */
+    Sequence<Integer> seq1 = this.createFromArgs(2, 4);
+    Sequence<Integer> expectedSeq1 = this.createFromArgs(2, 4);
+    Sequence<Integer> seq2 = this.createFromArgs(2, 4);
+    Sequence<Integer> expectedSeq2 = this.createFromArgs(3);
+    SequenceSmooth.smooth(seq1, seq2);
+    /*
+     * Assert that values of variables match expectations
+     */
+    assertEquals(expectedSeq1, seq1);
+    assertEquals(expectedSeq2, seq2);
+}
+
+/**
+ * Test smooth with s1 = < 1, 2 >, s2 = < 2, 4 >.
+ **/
+@Test
+public void test2(){
+    /*
+     * Set up variables and call method under test
+     */
+    Sequence<Integer> seq1 = this.createFromArgs(1, 2);
+    Sequence<Integer> expectedSeq1 = this.createFromArgs(1, 2);
+    Sequence<Integer> seq2 = this.createFromArgs(2, 4);
+    Sequence<Integer> expectedSeq2 = this.createFromArgs(1);
+    SequenceSmooth.smooth(seq1, seq2);
+    /*
+     * Assert that values of variables match expectations
+     */
+    assertEquals(expectedSeq1, seq1);
+    assertEquals(expectedSeq2, seq2);
+}
+
+/**
+ * Test smooth with s1 = < 0, 5, 0 >, s2 = < 2, 4 >.
+ **/
+@Test
+public void test3(){
+    /*
+     * Set up variables and call method under test
+     */
+    Sequence<Integer> seq1 = this.createFromArgs(0, 5, 0);
+    Sequence<Integer> expectedSeq1 = this.createFromArgs(0, 5, 0);
+    Sequence<Integer> seq2 = this.createFromArgs(2, 4);
+    Sequence<Integer> expectedSeq2 = this.createFromArgs(2, 2);
+    SequenceSmooth.smooth(seq1, seq2);
+    /*
+     * Assert that values of variables match expectations
+     */
+    assertEquals(expectedSeq1, seq1);
+    assertEquals(expectedSeq2, seq2);
+}
+
+/**
+ * Test smooth with s1 = < -3, -5, -7 >, s2 = < 2, 4 >.
+ **/
+@Test
+public void test4(){
+    /*
+     * Set up variables and call method under test
+     */
+    Sequence<Integer> seq1 = this.createFromArgs(-3, -5, -7);
+    Sequence<Integer> expectedSeq1 = this.createFromArgs(-3, -5, -7);
+    Sequence<Integer> seq2 = this.createFromArgs(2, 4);
+    Sequence<Integer> expectedSeq2 = this.createFromArgs(-4, -6);
+    SequenceSmooth.smooth(seq1, seq2);
+    /*
+     * Assert that values of variables match expectations
+     */
+    assertEquals(expectedSeq1, seq1);
+    assertEquals(expectedSeq2, seq2);
+}
+
+/**
+ * Test smooth with s1 = < 5, 5, 5 >, s2 = < 2, 4 >.
+ **/
+@Test
+public void test5(){
+    /*
+     * Set up variables and call method under test
+     */
+    Sequence<Integer> seq1 = this.createFromArgs(5, 5, 5);
+    Sequence<Integer> expectedSeq1 = this.createFromArgs(5, 5, 5);
+    Sequence<Integer> seq2 = this.createFromArgs(2, 4);
+    Sequence<Integer> expectedSeq2 = this.createFromArgs(5, 5);
+    SequenceSmooth.smooth(seq1, seq2);
+    /*
+     * Assert that values of variables match expectations
+     */
+    assertEquals(expectedSeq1, seq1);
+    assertEquals(expectedSeq2, seq2);
+}
+
+/**
+ * Test smooth with s1 = < 2, -5, 11, -4, 0 >, s2 = < 2, 4 >.
+ **/
+@Test
+public void test6(){
+    /*
+     * Set up variables and call method under test
+     */
+    Sequence<Integer> seq1 = this.createFromArgs(2, -5, 11, -4, 0);
+    Sequence<Integer> expectedSeq1 = this.createFromArgs(2, -5, 11, -4, 0);
+    Sequence<Integer> seq2 = this.createFromArgs(2, 4);
+    Sequence<Integer> expectedSeq2 = this.createFromArgs(-1, 3, 3, -2);
+    SequenceSmooth.smooth(seq1, seq2);
+    /*
+     * Assert that values of variables match expectations
+     */
+    assertEquals(expectedSeq1, seq1);
+    assertEquals(expectedSeq2, seq2);
+}
+
+/**
+ * Test smooth with s1 = < 1000000, 1000002 >, s2 = < 2, 4 >.
+ **/
+@Test
+public void test7(){
+    /*
+     * Set up variables and call method under test
+     */
+    Sequence<Integer> seq1 = this.createFromArgs(1000000, 1000002);
+    Sequence<Integer> expectedSeq1 = this.createFromArgs(1000000, 1000002);
+    Sequence<Integer> seq2 = this.createFromArgs(2, 4);
+    Sequence<Integer> expectedSeq2 = this.createFromArgs(1000001);
+    SequenceSmooth.smooth(seq1, seq2);
+    /*
+     * Assert that values of variables match expectations
+     */
+    assertEquals(expectedSeq1, seq1);
+    assertEquals(expectedSeq2, seq2);
+}
+
+/**
+ * Test smooth with s1 = < 7 >, s2 = < 2, 4 >.
+ **/
+@Test
+public void test8(){
+    /*
+     * Set up variables and call method under test
+     */
+    Sequence<Integer> seq1 = this.createFromArgs(7);
+    Sequence<Integer> expectedSeq1 = this.createFromArgs(7);
+    Sequence<Integer> seq2 = this.createFromArgs(2, 4);
+    Sequence<Integer> expectedSeq2 = this.createFromArgs();
+    SequenceSmooth.smooth(seq1, seq2);
+    /*
+     * Assert that values of variables match expectations
+     */
+    assertEquals(expectedSeq1, seq1);
+    assertEquals(expectedSeq2, seq2);
+}
 ```
 
 ## Submission

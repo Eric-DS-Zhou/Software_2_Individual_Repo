@@ -1,8 +1,8 @@
 # [Homework 10: Hashing and Implementing Mod][hw10]
 
-- **Name**: <!-- TODO: fill with first and last name (e.g., Brutus Buckeye) -->
-- **Dot Number**: <!-- TODO: fill with OSU dot number (e.g., buckeye.17) -->
-- **Due Date**: <!-- TODO: fill out with due date and time (e.g., 10/17 @ 3:10 PM EST) -->
+- **Name**: Eric Zhou
+- **Dot Number**: zhou.4898
+- **Due Date**: Feb 5 @ 4:10 PM EST
 
 ## Preparation
 
@@ -43,7 +43,19 @@ have to waste time entering your code during the lab.
  * there exists k: integer (a = k * b + mod)
  * </pre>
  */
-public static int mod(int a, int b) {...}
+public static int mod(int a, int b) {
+    int mod = a;
+
+    while(mod < 0) {
+        mod = mod + b;
+    }
+
+    while(mod >= b){
+        mod = mod - b;
+    }
+
+    return mod;
+}
 ```
 
 > Note that, although you can use the remainder operator % in your
@@ -76,16 +88,16 @@ public static int mod(int a, int b) {
 
 | Bucket | Integers Hashed |
 | ------ | --------------- |
-| 0      |                 |
+| 0      | 0, 90           |
 | 1      |                 |
-| 2      |                 |
+| 2      | 432, -788       |
 | 3      |                 |
-| 4      |                 |
-| 5      |                 |
+| 4      | 54, 84, -6      |
+| 5      | -195            |
 | 6      |                 |
-| 7      |                 |
+| 7      | 17              |
 | 8      |                 |
-| 9      |                 |
+| 9      | -101            |
 
 #### Problem 2B
 
@@ -95,17 +107,29 @@ public static int mod(int a, int b) {
 > how the elements of the set above are distributed among the buckets by
 > this hash function.
 
+```java
+@Override
+public int hashCode() {
+    int h = this.intValue();
+    if (h < 0) {
+        h = -h;
+    }
+    h = h % 10;
+    return h;
+}
+```
+
 | Bucket | Integers Hashed |
 | ------ | --------------- |
-| 0      |                 |
-| 1      |                 |
-| 2      |                 |
+| 0      | 0, 90           |
+| 1      | -101            |
+| 2      | 432             |
 | 3      |                 |
-| 4      |                 |
-| 5      |                 |
-| 6      |                 |
-| 7      |                 |
-| 8      |                 |
+| 4      | 54, 84          |
+| 5      | -195            |
+| 6      | -6              |
+| 7      | 17              |
+| 8      | -788            |
 | 9      |                 |
 
 ## Submission
@@ -121,5 +145,3 @@ reserve the right to give a zero.
 [hw10]: https://cse22x1.engineering.osu.edu/2231/web-sw2/assignments/homeworks/mod-hashing.html
 [feedback-form]: https://forms.gle/qJ1gEM5N1r6X7Poy5
 [markdown-to-pdf-guide]: https://therenegadecoder.com/blog/how-to-convert-markdown-to-a-pdf-3-quick-solutions/
-[map-test]: https://cse22x1.engineering.osu.edu/2231/web-sw2/assignments/homeworks/map-on-queue/MapTest.java
-[remove-any]: https://cse22x1.engineering.osu.edu/2231/web-sw2/assignments/homeworks/set-on-queue/test-removeany.html

@@ -1,8 +1,8 @@
 # [Homework 7: Sequence Implementation on Stack][hw7]
 
-- **Name**: <!-- TODO: fill with first and last name (e.g., Brutus Buckeye) -->
-- **Dot Number**: <!-- TODO: fill with OSU dot number (e.g., buckeye.17) -->
-- **Due Date**: <!-- TODO: fill out with due date and time (e.g., 10/17 @ 3:10 PM EST) -->
+- **Name**: Eric Zhou
+- **Dot Number**: zhou.4898
+- **Due Date**: Jan 27 @ 4:10 PM EST
 
 ## Preparation
 
@@ -56,7 +56,15 @@ have to waste time entering your code during the lab.
  * </pre>
  */
 private static <T> void setLengthOfLeftStack(Stack<T> leftStack,
-        Stack<T> rightStack, int newLeftLength) {...}
+        Stack<T> rightStack, int newLeftLength) {
+            while (leftStack.length() > newLeftLength){
+                rightStack.push(leftStack.pop());
+            }
+
+            while (leftStack.length() < newLeftLength){
+                leftStack.push(rightStack.pop());
+            }
+        }
 ```
 
 > Note that setLengthOfLeftStack is a static, generic method:
@@ -70,8 +78,6 @@ private static <T> void setLengthOfLeftStack(Stack<T> leftStack,
 > and kernel methods (add, remove, and length) and enter
 > them in [SequenceTest][sequence-test].
 
-<!-- TODO: fill out skeleton below -->
-
 ```java
 import components.sequence.Sequence;
 
@@ -79,7 +85,7 @@ import components.sequence.Sequence;
  * JUnit test fixture for {@code Sequence<String>}'s constructor and kernel
  * methods.
  *
- * @author Put your name here
+ * @author Eric Zhou
  *
  */
 public abstract class SequenceTest {
@@ -138,7 +144,124 @@ public abstract class SequenceTest {
         return sequence;
     }
 
-    // TODO - add test cases for constructor, add, remove, and length
+    // test case for constructor
+    @Test
+    public void testConstructorEmpty() {
+        Sequence<String> sTest = this.constructorTest();
+        Sequence<String> sRef = this.constructorRef();
+        assertEquals(sRef, sTest);
+    }
+
+    // test case for add
+
+    //add element to empty construtor
+    @Test
+    public void testConstructorNoEmpty() {
+        Sequence<String> sTest = this.createFromArgsTest();
+        Sequence<String> sRef = this.createFromArgsRef();
+
+        sTest.add(0, "a");
+        sRef.add(0, "a");
+
+        assertEquals(sRef, sTest);
+    }
+
+    //add element in front
+    @Test
+    public void testAddFront() {
+        Sequence<String> sTest = this.createFromArgsTest("b", "c");
+        Sequence<String> sRef = this.createFromArgsRef("b", "c");
+
+        sTest.add(0, "a");
+        sRef.add(0, "a");
+
+        assertEquals(sRef, sTest);
+    }
+
+    //add element in middle
+    @Test
+    public void testAddMiddle() {
+        Sequence<String> sTest = this.createFromArgsTest("b", "c");
+        Sequence<String> sRef = this.createFromArgsRef("b", "c");
+
+        sTest.add(1, "a");
+        sRef.add(1, "a");
+
+        assertEquals(sRef, sTest);
+    }
+
+    //add element at end
+    @Test
+    public void testAddEnd() {
+        Sequence<String> sTest = this.createFromArgsTest("b", "c");
+        Sequence<String> sRef = this.createFromArgsRef("b", "c");
+
+        sTest.add(2, "a");
+        sRef.add(2, "a");
+
+        assertEquals(sRef, sTest);
+    }
+
+    //test cases for remove
+
+    //remove the front
+    @Test
+    public void testRemoveFront() {
+        Sequence<String> sTest = this.createFromArgsTest("a", "b", "c");
+        Sequence<String> sRef = this.createFromArgsRef("a", "b", "c");
+
+        String removeTest = sTest.remove(0);
+        String removeRef = sRef.remove(0);
+
+        assertEquals(sRef, sTest);
+        assertEquals(removeRef, removeTest);
+    }
+
+    //remove the middle
+    @Test
+    public void testRemoveMiddle() {
+        Sequence<String> sTest = this.createFromArgsTest("a", "b", "c");
+        Sequence<String> sRef = this.createFromArgsRef("a", "b", "c");
+
+        String removeTest = sTest.remove(1);
+        String removeRef = sRef.remove(1);
+
+        assertEquals(sRef, sTest);
+        assertEquals(removeRef, removeTest);
+    }
+
+    //remove the end
+    @Test
+    public void testRemoveEnd() {
+        Sequence<String> sTest = this.createFromArgsTest("a", "b", "c");
+        Sequence<String> sRef = this.createFromArgsRef("a", "b", "c");
+
+        String removeTest = sTest.remove(2);
+        String removeRef = sRef.remove(2);
+
+        assertEquals(sRef, sTest);
+        assertEquals(removeRef, removeTest);
+    }
+
+    //test cases for length
+
+    //empty
+    @Test
+    public void testLengthEmpty() {
+        Sequence<String> sTest = this.createFromArgsTest();
+        Sequence<String> sRef = this.createFromArgsRef();
+
+        assertEquals(sRef.length(), sTest.length());
+    }
+
+    //not empty
+    @Test
+    public void testLengthNotEmpty() {
+        Sequence<String> sTest = this.createFromArgsTest("a", "b", "c");
+        Sequence<String> sRef = this.createFromArgsRef("a", "b", "c");
+
+        assertEquals(sRef.length(), sTest.length());
+    }
 
 }
 ```

@@ -1,8 +1,8 @@
 # [Homework 6: Queue Implementation on Sequence][hw6]
 
-- **Name**: <!-- TODO: fill with first and last name (e.g., Brutus Buckeye) -->
-- **Dot Number**: <!-- TODO: fill with OSU dot number (e.g., buckeye.17) -->
-- **Due Date**: <!-- TODO: fill out with due date and time (e.g., 10/17 @ 3:10 PM EST) -->
+- **Name**: Eric Zhou
+- **Dot Number**: zhou.4898
+- **Due Date**: Jan 22 @ 4:10 PM EST
 
 ## Preparation
 
@@ -33,8 +33,6 @@ have to waste time entering your code during the lab.
 > Complete the implementation of Queue3 on Sequence in the skeleton
 > provided by writing bodies for the kernel methods: enqueue, dequeue,
 > and length.
-
-<!-- TODO: fill out skeleton below -->
 
 ```java
 package components.queue;
@@ -91,7 +89,7 @@ public class Queue3<T> extends QueueSecondary<T> {
     public final void enqueue(T x) {
         assert x != null : "Violation of: x is not null";
 
-        // TODO - fill in body
+        this.entries.add(this.entries.length(), x);
 
     }
 
@@ -99,19 +97,17 @@ public class Queue3<T> extends QueueSecondary<T> {
     public final T dequeue() {
         assert this.length() > 0 : "Violation of: this /= <>";
 
-        // TODO - fill in body
+        T x = this.entries.remove(0);
 
-        // This line added just to make the component compilable.
-        return null;
+        return x;
     }
 
     @Override
     public final int length() {
 
-        // TODO - fill in body
+        int result = this.entries.length();
 
-        // This line added just to make the component compilable.
-        return 0;
+        return result;
     }
 
     /*
@@ -142,7 +138,16 @@ public class Queue3<T> extends QueueSecondary<T> {
 public T front() {
     assert this.length() > 0 : "Violation of: this /= <>";
 
-    // fill in body
+    T front = this.dequeue();
+    this.enqueue(front);
+    int i = 0;
+    int length = this.length();
+    while( i < length - 1 ){
+        T temp = this.dequeue();
+        this.enqueue(temp);
+        i = i + 1;
+    }
+    return front;
 
 }
 ```

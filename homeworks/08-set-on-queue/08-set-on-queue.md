@@ -1,8 +1,8 @@
 # [Homework 8: Set Implementation on Queue][hw8]
 
-- **Name**: <!-- TODO: fill with first and last name (e.g., Brutus Buckeye) -->
-- **Dot Number**: <!-- TODO: fill with OSU dot number (e.g., buckeye.17) -->
-- **Due Date**: <!-- TODO: fill out with due date and time (e.g., 10/17 @ 3:10 PM EST) -->
+- **Name**: Eric Zhou
+- **Dot Number**: zhou.4898
+- **Due Date**: Jan 29 @ 4:10 PM EST
 
 ## Preparation
 
@@ -30,7 +30,6 @@ have to waste time entering your code during the lab.
 > queue and, if it finds it, moves that entry to the front of
 > the queue.
 
-
 ```java
 /**
  * Finds {@code x} in {@code q} and, if such exists, moves it to the front
@@ -49,13 +48,32 @@ have to waste time entering your code during the lab.
  *  then <x> is prefix of q
  * </pre>
  */
-private static <T> void moveToFront(Queue<T> q, T x) {...}
+private static <T> void moveToFront(Queue<T> q, T x) {
+    Queue<T> left = new Queue1L<>();
+    Queue<T> right = new Queue1L<>();
+
+    int n = q.length();
+    boolean found = false;
+
+    for (int i = 0; i < n; i++){
+        T y = q.dequeue();
+        if (!found && y.equals(x)){
+            left.enqueue(y);
+            found = true;
+        } else {
+            right.enqueue(y);
+        }
+    }
+
+    q.append(left);
+    q.append(right);
+}
 ```
 
 > Note that moveToFront is a static, generic method: it is parameterized
 > by the type T of the entries in the queue. You can use the type T
 > wherever you need to declare a variable that refers to an object of
-> type T.
+> type T.、
 
 > Pay attention to the contract. There is no requires clause. If you have
 > trouble reading and understanding the *ensures* clause, be sure to ask for
@@ -68,8 +86,6 @@ private static <T> void moveToFront(Queue<T> q, T x) {...}
 > You can find some more information on how to effectively test removeAny
 > [here][remove-any].
 
-<!-- TODO: fill out skeleton below -->
-
 ```java
 import static org.junit.Assert.assertEquals;
 
@@ -80,7 +96,7 @@ import components.set.Set;
 /**
  * JUnit test fixture for {@code Set<String>}'s constructor and kernel methods.
  *
- * @author Put your name here
+ * @author Eric Zhou
  *
  */
 public abstract class SetTest {
@@ -139,8 +155,130 @@ public abstract class SetTest {
         return set;
     }
 
-    // TODO - add test cases for constructor, add, remove, removeAny, contains, and size
 
+    //test case for constructor
+
+    @Test
+    public void testConstuctor(){
+        Set<String> ref = this.constructorRef();
+        Set<String> test = this.constructorTest();
+
+        assertEquals(ref, test);
+    }
+
+    //test cases for add
+
+    //add in empty set
+    @Test
+    public void testAddEmpty(){
+        Set<String> ref = this.createFromArgsRef("a");
+        Set<String> test = this.constructorTest();
+
+        test.add("a");
+
+        assertEquals(ref, test);
+    }
+
+    //add in nonempty set
+    @Test
+    public void testAddNonEmpty(){
+        Set<String> ref = this.createFromArgsRef("a", "b", "c");
+        Set<String> test = this.createFromArgsTest("a", "b");
+
+        test.add("c");
+
+        assertEquals(ref, test);
+    }
+
+    //test cases for remove
+
+    //empty after remove
+    @Test
+    public void testEmptyAfterRemoved(){
+        Set<String> ref = this.constructorRef();
+        Set<String> test = this.createFromArgsTest("a");
+
+        String removed = test.remove("a");
+
+        assertEquals("a", removed);
+        assertEquals(ref, test);
+    }
+
+    //normal remove
+    @Test
+    public void testRemoveNormal(){
+        Set<String> ref = this.createFromArgsRef("a", "c");
+        Set<String> test = this.createFromArgsTest("a", "b", "c");
+
+        String removed = test.remove("b");
+
+        assertEquals("b", removed);
+        assertEquals(ref, test);
+    }
+
+    //test cases for removeAny
+
+    //only one element
+    @Test
+    public void testRemoveAnyOnlyOne(){
+        Set<String> ref = this.constructorRef();
+        Set<String> test = this.createFromArgsTest("a");
+
+        String removed = test.removeAny();
+
+        assertEquals("a", removed);
+        assertEquals(ref, test);
+    }
+
+    //normal removeAny
+    @Test
+    public void testRemoveAnyNormal(){
+        Set<String> test = this.createFromArgsTest("a", "b", "c");
+        Set<String> ref = this.createFromArgsRef("a", "b", "c");
+
+        String removed = test.removeAny();
+
+        assertEquals(true, ref.contains(removed));
+        ref.remove(removed);
+        assertEquals(ref, test);
+    }
+
+    //test cases for contains
+
+    //empty
+    @Test
+    public void testContainsEmpty(){
+        Set<String> test = this.constructorTest();
+
+        assertEquals(false, test.contains("a"));
+    }
+
+    //normal cases for contains
+    @Test
+    public void testContainsNormal(){
+        Set<String> test = this.createFromArgsTest("a", "b", "c");
+
+        assertEquals(true, test.contains("a"));
+        assertEquals(false, test.contains("d"));
+    }
+
+    //test cases for size
+
+    //empty
+    @Test
+    public void testSizeEmpty(){
+        Set<String> test = this.constructorTest();
+
+        assertEquals(0, test.size());
+    }
+
+    //normal case for size
+    @Test
+    public void testSizeNormal(){
+        Set<String> test = this.createFromArgsTest("a", "b", "c");
+
+        assertEquals(3, test.size());
+    }
 }
 ```
 

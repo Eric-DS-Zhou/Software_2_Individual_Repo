@@ -1,8 +1,8 @@
 # [Homework 5: Standard Java Lists][hw5]
 
-- **Name**: <!-- TODO: fill with first and last name (e.g., Brutus Buckeye) -->
-- **Dot Number**: <!-- TODO: fill with OSU dot number (e.g., buckeye.17) -->
-- **Due Date**: <!-- TODO: fill out with due date and time (e.g., 10/17 @ 3:10 PM EST) -->
+- **Name**: Eric Zhou
+- **Dot Number**: zhou.4898
+- **Due Date**: Jan 21 @ 4:10 PM EST
 
 ## Preparation
 
@@ -29,6 +29,7 @@ Below you'll find the problems for today's assignment.
 ### Problem 2
 
 > Carefully read the following sections of the documentation:
+>
 > - the top-level description of the List component at the start of the page, and
 > - the detailed descriptions of the methods add(E e), remove(int index), get(int index), and size().
 
@@ -36,28 +37,26 @@ Below you'll find the problems for today's assignment.
 
 > Complete the following tracing table:
 
-<!-- TODO: replace '?' marks with values -->
-
 | Statement                                              | Variable Values       |
 | ------------------------------------------------------ | --------------------- |
 | `List<Integer> list = new SomeListImplementation<>();` |                       |
-|                                                        | list = `?`            |
+|                                                        | list = <>            |
 | `list.add(7);`                                         |                       |
-|                                                        | list = `?`            |
+|                                                        | list = <7>            |
 | `list.add(-12);`                                       |                       |
-|                                                        | list = `?`            |
+|                                                        | list = <7, -12>            |
 | `list.add(3);`                                         |                       |
-|                                                        | list = `?`            |
+|                                                        | list = <7, -12, 3>            |
 | `int x = list.size();`                                 |                       |
-|                                                        | list = `?`<br>x = `?` |
+|                                                        | list = <7, -12, 3> <br>x = 3 |
 | `x = list.get(1);`                                     |                       |
-|                                                        | list = `?`<br>x = `?` |
+|                                                        | list = <7, -12, 3> <br>x = -12 |
 | `x = list.remove(0);`                                  |                       |
-|                                                        | list = `?`<br>x = `?` |
+|                                                        | list = <-12, 3> <br>x = 7 |
 | `x = list.remove(1);`                                  |                       |
-|                                                        | list = `?`<br>x = `?` |
+|                                                        | list = <-12> <br>x = 3 |
 | `x = list.size();`                                     |                       |
-|                                                        | list = `?`<br>x = `?` |
+|                                                        | list = <-12> <br>x = 1 |
 
 ### Problem 4
 
@@ -65,19 +64,23 @@ Below you'll find the problems for today's assignment.
 > methods are marked as optional operations. Briefly discuss the
 > benefits vs. pitfalls of this design decision.
 
-<!-- TODO: discuss -->
+The benefit of marking them as optional operations is that it increases flexibiliy, so that the developer can decide whether operate them or not.
+
+The pitfall of this decision is that the clients should check the documentation before using them. They cannot assume that these operations are always supported. It may reduce code portability
 
 ### Problem 5
 
 > Consider this quote from the java.util.List description:
 >
->   Some list implementations have restrictions on the elements that
->   they may contain. For example, some implementations prohibit null
->   elements, and some have restrictions on the types of their elements.
+> Some list implementations have restrictions on the elements that
+> they may contain. For example, some implementations prohibit null
+> elements, and some have restrictions on the types of their elements.
 >
 > Briefly discuss the benefits vs. pitfalls of this design decision.
 
-<!-- TODO: discuss -->
+The benefit is that it can keep the code safe. It can prevent invalid elements from being added. With the restriction, the methods could be operated correctly.
+
+The pitfall is that the clients should check the documentation before operating. For example, when we use null element or some special value, it may cause some mistakes or throw some exceptions.
 
 ## Submission
 

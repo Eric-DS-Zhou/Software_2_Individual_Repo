@@ -1,8 +1,8 @@
 # [Homework 4: Integer Average][hw4]
 
-- **Name**: <!-- TODO: fill with first and last name (e.g., Brutus Buckeye) -->
-- **Dot Number**: <!-- TODO: fill with OSU dot number (e.g., buckeye.17) -->
-- **Due Date**: <!-- TODO: fill out with due date and time (e.g., 10/17 @ 3:10 PM EST) -->
+- **Name**: Eric Zhou
+- **Dot Number**: zhou. 4898
+- **Due Date**: Jan 20 @ 4:10 PM EST
 
 ## Preparation
 
@@ -49,7 +49,7 @@ Answer the following questions.
 > of two Java ints i and j is representable as an int, regardless of the lower and
 > upper bounds on the value of an int.
 
-<!-- TODO: answer the question here -->
+In my opinion, the claim is correct. We can know that for any two int value j and k, the average of (j + k)/2 should always be between the minimum and the maximum value of int. Although if we directly compute j + k may overflow, we can rewrite it as k/2 + j/2 + (j%2 +k%2)/2. Therefore, i and j can always be representable as int, regardless of the lower and upper bounds on the value of an int.
 
 ### Problem 2
 
@@ -92,7 +92,10 @@ Answer the following questions.
  * @ensures average = (j+k)/2
  */
 public static int average(int j, int k) {
-    // TODO: implement the method
+    int q = j / 2 + k / 2;
+    int r = j % 2 + k % 2;
+    int adjust = r / 2
+    return q + adjust;
 }
 ```
 

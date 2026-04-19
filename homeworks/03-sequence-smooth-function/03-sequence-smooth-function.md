@@ -1,8 +1,8 @@
 # [Homework 3: Sequence Smooth as a Function][hw3]
 
-- **Name**: <!-- TODO: fill with first and last name (e.g., Brutus Buckeye) -->
-- **Dot Number**: <!-- TODO: fill with OSU dot number (e.g., buckeye.17) -->
-- **Due Date**: <!-- TODO: fill out with due date and time (e.g., 10/17 @ 3:10 PM EST) -->
+- **Name**: Eric Zhou
+- **Dot Number**: zhou.4898
+- **Due Date**: Jan 16 @ 4:10 PM EST
 
 ## Preparation
 
@@ -54,7 +54,24 @@ Answer the following questions.
 > the changes.
 
 ```java
-// TODO: rewrite the method header and contract
+/**
+ * Return the final smoothed sequence of the given {@code Sequence<Integer>}.
+ *
+ * @param s1
+ *            the sequence to smooth
+ * @return    the final smoothed sequence
+ *
+ * @requires |s1| >= 1
+ * @ensures <pre>
+ * |smooth(s1)| = |s1| - 1  and
+ *  for all i, j: integer, a, b: string of integer
+ *      where (s1 = a * <i> * <j> * b)
+ *    (there exists c, d: string of integer
+ *       (|c| = |a|  and
+ *        smooth(s1) = c * <(i+j)/2> * d))
+ * </pre>
+ */
+public static Sequence<Integer> smooth(Sequence<Integer> s1) {...}
 ```
 
 ### Problem 2
@@ -69,13 +86,30 @@ Answer the following questions.
 ### Recursive
 
 ```java
-// TODO: write recursive solution
+public static Sequence<Integer> smoothRecur(Sequence<Integer> s1) {
+    Sequence<Integer> result = s1.newInstance();
+    if (s1.length() > 1){
+        int first = s1.remove(0);
+        int second = s1.entry(0);
+        result = smoothRecur(s1);
+        result.add(0, (first + second) / 2);
+        s1.add(0, first);
+    }
+    return result;
+}
 ```
 
 ### Iterative
 
 ```java
-// TODO: write iterative solution
+public static Sequence<Integer> smoothIter(Sequence<Integer> s1) {
+    Sequence<Integer> result = s1.newInstance();
+    for(int i = 0; i < s1.length() - 1; i++){
+        int avg = (s1.entry(i) + s1.entry(i+1)) / 2;
+        result.add(result.length(), avg);
+    }
+    return result;
+}
 ```
 
 ## Submission
