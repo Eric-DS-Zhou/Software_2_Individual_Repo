@@ -247,6 +247,12 @@ the following form: YYYY.0M.0D.
 
 - Updated Project 10 to group repo
 
+## [2026.04.19]
+
+### Updated
+
+- Updated HW 1-10 from group repo toi indi repo
+
 ## ***Ending***
 
 ***Special thanks to Professor `@Jeremy Grifski` for his guidance and support throughout Software II.***
