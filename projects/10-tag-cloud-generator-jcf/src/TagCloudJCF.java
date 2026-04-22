@@ -45,7 +45,13 @@ public final class TagCloudJCF {
         @Override
         public int compare(Map.Entry<String, Integer> e1,
                 Map.Entry<String, Integer> e2) {
-            return e2.getValue().compareTo(e1.getValue());
+            int result = e2.getValue().compareTo(e1.getValue());
+
+            if (result == 0) {
+                result = e1.getKey().compareTo(e2.getKey());
+            }
+
+            return result;
         }
     }
 
@@ -58,7 +64,13 @@ public final class TagCloudJCF {
         @Override
         public int compare(Map.Entry<String, Integer> e1,
                 Map.Entry<String, Integer> e2) {
-            return e1.getKey().compareToIgnoreCase(e2.getKey());
+            int result = e1.getKey().compareTo(e2.getKey());
+
+            if (result == 0) {
+                result = e1.getValue().compareTo(e2.getValue());
+            }
+
+            return result;
         }
     }
 
@@ -83,57 +95,48 @@ public final class TagCloudJCF {
      * @return next word or sep
      */
     private static String nextWordOrSep(String text, int position) {
-        StringBuilder token = new StringBuilder();
         boolean mode = isSep(text.charAt(position));
         int index = position;
 
         while (index < text.length() && isSep(text.charAt(index)) == mode) {
-            token.append(text.charAt(index));
             index++;
         }
 
-        return token.toString();
+        return text.substring(position, index);
     }
 
     /**
      * Read the input file and count the words.
      *
-     * @param inFile
-     *            the name of input file
+     * @param in
+     *            the input stream
      * @return the final count map
      */
-    private static Map<String, Integer> count(String inFile) {
+    private static Map<String, Integer> count(BufferedReader in)
+            throws IOException {
+
         Map<String, Integer> counts = new HashMap<>();
+        String line = in.readLine();
 
-        try {
-            BufferedReader in = new BufferedReader(new FileReader(inFile));
-            String line = in.readLine();
+        while (line != null) {
+            int position = 0;
 
-            while (line != null) {
-                int position = 0;
+            while (position < line.length()) {
+                String token = nextWordOrSep(line, position);
 
-                while (position < line.length()) {
-                    String token = nextWordOrSep(line, position);
+                if (!isSep(token.charAt(0))) {
+                    String word = token.toLowerCase();
 
-                    if (!isSep(token.charAt(0))) {
-                        String word = token.toLowerCase();
-
-                        if (counts.containsKey(word)) {
-                            counts.put(word, counts.get(word) + 1);
-                        } else {
-                            counts.put(word, 1);
-                        }
+                    if (counts.containsKey(word)) {
+                        counts.put(word, counts.get(word) + 1);
+                    } else {
+                        counts.put(word, 1);
                     }
-                    position = position + token.length();
                 }
-                line = in.readLine();
+                position = position + token.length();
             }
-            in.close();
-
-        } catch (IOException e) {
-            System.err.println("Error in reading file: " + e.getMessage());
+            line = in.readLine();
         }
-
         return counts;
     }
 
@@ -171,8 +174,13 @@ public final class TagCloudJCF {
      */
     private static void printHeader(PrintWriter out, String inputFileName,
             int n) {
-        out.println("<html>");
+        out.println("<!DOCTYPE html>");
+        out.println("<html lang=\"en-US\">");
+
         out.println("<head>");
+        out.println("<meta charset=\"UTF-8\">");
+        out.println(
+                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
         out.println(
                 "<title>Top " + n + " Words in " + inputFileName + "</title>");
         out.println(
@@ -315,12 +323,20 @@ public final class TagCloudJCF {
         System.out.print("Enter the number of words: ");
         int n = input.nextInt();
 
-        Map<String, Integer> counts = count(inputFileName);
-        List<Map.Entry<String, Integer>> topWords = selectTopWords(counts, n);
+        BufferedReader in;
+        PrintWriter out;
 
         try {
-            PrintWriter out = new PrintWriter(
+            in = new BufferedReader(new FileReader(inputFileName));
+            out = new PrintWriter(
                     new BufferedWriter(new FileWriter(outputFileName)));
+        } catch (IOException e) {
+            System.err.println("Error opening file: " + e.getMessage());
+        }
+
+        try {
+            Map<String, Integer> counts = count(in);
+            List<Map.Entry<String, Integer>> topWords = selectTopWords(counts, n);
 
             int[] minMax = minMax(topWords);
             int min = minMax[0];
@@ -330,11 +346,17 @@ public final class TagCloudJCF {
             outputTags(out, topWords, min, max);
             printFooter(out);
 
-            out.close();
         } catch (IOException e) {
-            System.err.println("Error writing output file: " + e.getMessage());
+            System.err.println("Error reading input file: " + e.getMessage());
         }
 
+        try {
+            in.close();
+        } catch (IOException e) {
+            System.err.println("Error closing input file: " + e.getMessage());
+        }
+
+        out.close();
         input.close();
     }
 }

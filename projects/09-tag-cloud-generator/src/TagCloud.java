@@ -247,6 +247,10 @@ public final class TagCloud {
         while (num < n && countMachine.size() > 0) {
             Map.Pair<String, Integer> pair = countMachine.removeFirst();
             int currentCount = pair.value();
+            // if (num = 0) {
+            //     max = currentCount;
+            // }
+            // min = currentCount;
             alpMachine.add(pair);
 
             if (first) {
