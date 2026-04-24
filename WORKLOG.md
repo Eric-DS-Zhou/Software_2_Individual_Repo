@@ -253,6 +253,12 @@ the following form: YYYY.0M.0D.
 
 - Updated HW 1-10 from group repo toi indi repo
 
+## [2026.04.23]
+
+### Fixed
+
+- Fixed Project 10
+
 ## ***Ending***
 
 ***Special thanks to Professor `@Jeremy Grifski` for his guidance and support throughout Software II.***
