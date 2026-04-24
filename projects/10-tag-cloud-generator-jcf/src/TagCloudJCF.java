@@ -323,6 +323,8 @@ public final class TagCloudJCF {
         System.out.print("Enter the number of words: ");
         int n = input.nextInt();
 
+        input.close();
+
         BufferedReader in;
         PrintWriter out;
 
@@ -332,31 +334,30 @@ public final class TagCloudJCF {
                     new BufferedWriter(new FileWriter(outputFileName)));
         } catch (IOException e) {
             System.err.println("Error opening file: " + e.getMessage());
+            return;
         }
 
         try {
             Map<String, Integer> counts = count(in);
-            List<Map.Entry<String, Integer>> topWords = selectTopWords(counts, n);
+            List<Map.Entry<String, Integer>> topWords = selectTopWords(counts,
+                    n);
 
             int[] minMax = minMax(topWords);
             int min = minMax[0];
             int max = minMax[1];
-
             printHeader(out, inputFileName, topWords.size());
             outputTags(out, topWords, min, max);
             printFooter(out);
-
         } catch (IOException e) {
-            System.err.println("Error reading input file: " + e.getMessage());
+            System.err.println("Error reading file: " + e.getMessage());
         }
 
         try {
             in.close();
         } catch (IOException e) {
-            System.err.println("Error closing input file: " + e.getMessage());
+            System.err.println("Error closing file: " + e.getMessage());
         }
 
         out.close();
-        input.close();
     }
 }
