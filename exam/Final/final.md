@@ -3,16 +3,33 @@
 ## Mutiple choices
 
 1. The job of the implementor and client
-    - implementor: make sure the postcondition is ture.
-    - client: make sure the precondition is ture.
+    - implementor: make sure the postcondition is ture when method returns.
+    - client: make sure the precondition is ture at the moment the method is called.
 
 2. Convention and Correspondance
     - Convention: A constraint on the possible values of the concrete state space.
     - Correspondace: maps values in the concrete state space to values in the abstract state space.
+    - More about convention
+        - It is a precondition for every public kernel method.
+        - It is a postcondition for every public kernel method.
+        - It is a postcondition for every constructor.
+        - It is `not` a precondition for every constructor.
 
 3. Hash function
     - WHAT: An integer representation of an object.
     - Benefit: ???
+    - What is a good hash function:
+        - the same result every time for the same key
+        - reduce collisions
+    - More about hash function
+        - Equal objects must always result in the same hash code.
+        - The following statement is `False`
+            - It must never return the same code for two different objects
+                - `False`: It is collisions, collisions are allowed to exist
+            - The function must only return positive integer values
+                - `False`: Does not have to be postive. Return `int`
+            - The function should have a precondition to limit legal inputs
+                - `False`: should work for any valid object
 
 4. Smart node
     - Benefit: It eliminates most edge cases.
@@ -21,6 +38,7 @@
 5. Abstract class
     - Provide a body for some of the methods inherited from the interfaces it implemented.
     - Provide some shared functionality for a set of subclasses.
+    - To factor out shared code for layered methods that can be implemented using only the kernel interface
 
 6. Classes and interfaces
     - Both can include overloaded methods
@@ -59,6 +77,9 @@
     - How does try-catch works
         - If an exception happens, Java jumps to the matching catch block.
         - If no exception happens, the catch block is skipped.
+    - More about try-catch
+        - If an exception is thrown within a try block and none of the associated catch clauses provide a matching exception type, what happens?
+            - The exception is thrown to the outer block or the calling method (the client).
 
 12. Declared type and object type
     - Declared type: Left side (static type & compiler type)
@@ -253,7 +274,7 @@ public static boolean valueOfBoolExpr(Queue<String> tokens) {
         } else {
             value = left || right;
         }
-        
+
         tokens.dequeue();
     }
 
