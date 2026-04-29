@@ -265,6 +265,20 @@ the following form: YYYY.0M.0D.
 
 - Working on Final review
 
+## [2026.04.28]
+
+### Finished
+
+- Finsihed Final review
+
+## [2026.04.29]
+
+### Finished
+
+- Finished Final !!! `:)`
+
+## END
+
 ## ***Ending***
 
 ***Special thanks to Professor `@Jeremy Grifski` for his guidance and support throughout Software II.***
@@ -275,4 +289,4 @@ the following form: YYYY.0M.0D.
 
 ***By Eric Zhou***
 
-***2026.04.24***
+***2026.04.29***

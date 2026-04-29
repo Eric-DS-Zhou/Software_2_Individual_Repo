@@ -17,7 +17,7 @@
 
 3. Hash function
     - WHAT: An integer representation of an object.
-    - Benefit: ???
+    - Benefit: Faster and Convenient
     - What is a good hash function:
         - the same result every time for the same key
         - reduce collisions
@@ -148,19 +148,36 @@
 ### Complier Programming
 
 ```java
-SimpleReader in = new SimpleReader1L("input.bl");
-SimpleWriter out = new SimpleWriter1L("output.txt");
-Program p = new Program1();
-p.parse(in);
-Sequence<Integer> code = p.generatedCode();
-for (int x : code) {
-    out.println(x);
+public static void main(String[] args) {
+    SimpleReader in = new SimpleReader1L();
+    SimpleWriter out = new SimpleWriter1L();
+
+    out.print("Enter thr inputfilename: " );
+    String inputFileName = in.nextLine();
+    out.print("Enter the outputfilename: ");
+    String outputFileName = in.nextLine();
+
+    try {
+        SimpleReader fileIn = new SimpleReader1L(inputFileName);
+        SimpleWriter fileOut = new SimpleWriter1L(outputFileName);
+
+        Program p = new Program1();
+        p.parse(fileIn);
+        Sequence<Integer> code = p.generatedCode();
+        for (int x : code) {
+            out.println(x);
+        }
+    } catch (IOException) {
+        out.println("Error: " + e.getMessage());
+    }
+
+    in.close();
+    out.close();
 }
-in.close();
-out.close();
+
 ```
 
-### Kernel Implementation - Queue on List
+### Kernel Implementation - Queue on List (Only use left side)
 
 ```java
 
@@ -247,6 +264,11 @@ public void append(Queue<T> q) {
     }
 }
 
+```
+
+### Kernel Implementation - Queue on List (Only use right side)
+
+```java
 @Override
 public void enqueue(T x) {
     this.rep.moveToFinish();
