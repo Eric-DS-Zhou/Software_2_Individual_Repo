@@ -246,6 +246,85 @@ public void append(Queue<T> q) {
         this.rep.moveToFinish();
     }
 }
+
+@Override
+public void enqueue(T x) {
+    this.rep.moveToFinish();
+    this.rep.addRightFront(x);
+    this.rep.moveToStart(); //（left = 0)
+}
+
+@Override
+public T dequeue() {
+    T x = this.rep.removeRightFront();
+
+    return x;
+}
+
+@Override
+public int length() {
+
+    return this.rep.rightLength();
+}
+
+@Override
+public T front() {
+    T result = this.rep.removeRightFront();
+    this.rep.addRightFront(result);
+
+    return result;
+}
+
+@Override
+public T replaceFront(T x) {
+    T result = this.rep.removeRightFront();
+    this.rep.addRightFront(x);
+
+    return result;
+}
+
+@Override
+public void flip() {
+    List<T> temp = this.rep.newInstance();
+
+    while (this.rep.rightLength() > 0) {
+        T x = this.rep.removeRightFront();
+        temp.addRightFront(x);
+    }
+
+    this.rep.transferFrom(temp);
+}
+
+@Override
+public void rotate(int distance) {
+    if (distance < 0) {
+        distance = this.rep.rightLength() + distance;
+    }
+
+    while (distance > 0) {
+        T x = this.rep.removeRightFront();
+
+        this.rep.moveToFinish();
+        this.rep.addRightFront(x);
+        this.rep.moveToStart();
+
+        distance--;
+    }
+
+}
+
+@Override
+public void append(Queue<T> q) {
+    Queue4<T> temp = (Queue4<T>) q; //assume this is `Queue4`
+
+    while (temp.rep.rightLength() > 0) {
+        T x = temp.rep.removeRightFront();
+
+        this.rep.moveToFinish();
+        this.rep.addRightFront(x);
+        this.rep.moveToStart();
+    }
+}
 ```
 
 ### Recursive Descent Parsing
