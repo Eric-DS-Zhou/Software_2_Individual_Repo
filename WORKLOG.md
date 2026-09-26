@@ -14,14 +14,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Calendar Versioning](https://calver.org/) of
 the following form: YYYY.0M.0D.
 
-## To-Do-List
-
-### Update Task
-
-- Update HW 1 - 20
-- Update Midterm 1 coding question
-- Update Project 1, 2, 4
-
 ## [2026.03.08]
 
 ### Completed
